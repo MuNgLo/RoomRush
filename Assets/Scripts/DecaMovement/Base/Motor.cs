@@ -6,15 +6,12 @@ using UnityEngine;
 namespace DecaMovement.Base
 {
     /// <summary>
-    /// The component calss holding all the movement related code.
+    /// The component class holding all the movement related code.
     /// NOTE The MeshCollider has to be simple and flagged as convex.
     /// </summary>
-    [AddComponentMenu("DoDecArena/Add Player Movement"), RequireComponent(typeof(Rigidbody), typeof(MeshCollider))]
+    [RequireComponent(typeof(Rigidbody), typeof(MeshCollider))]
     public class Motor : MonoBehaviour
     {
-        //public Transform playerView;     // Camera
-        
-
         public bool _debug = true;
         [Header("Settings")]
         public float _rotationSpeed = 120.0f; // How fast we rotate towards gravity when doing it manually
@@ -33,8 +30,8 @@ namespace DecaMovement.Base
         public Moves.Sliding _Sliding = new Moves.Sliding();
         #region private fields and properties
         //private float _currentSpeed = 0.0f;
-        private bool _wasGrounded = true; // remember the groudned flag from last tic
-        private bool _isCrouched = false;
+        //private bool _wasGrounded = true; // remember the groudned flag from last tic
+        //private bool _isCrouched = false;
         private Rigidbody _rb = null;
         private Vector3 _focusPoint = Vector3.zero;
         public bool IsGrounded { get { return _groundCheck.GroundData.grounded; } private set { } }
@@ -55,7 +52,7 @@ namespace DecaMovement.Base
             _Physics.Setup();
             _rb.useGravity = false;
             //this.enabled = false;
-            _in = GetComponent<InputHandling>();
+            _in = Core.Instance.GetInputHandling();
         }
         // TODO needs work
         private void OnPlayerMovementEvent(PlayerMovementEventArguments args)
@@ -92,7 +89,7 @@ namespace DecaMovement.Base
     
             //PushAway();
             GroundMovement();
-            _wasGrounded = true;
+            //_wasGrounded = true;
             if (_Jump.CanJump && _in.CMD.wishJump)
             {
                 _rb.velocity = _Jump.DoJump(_rb, _Physics.Gravity, _groundCheck.GroundData);
@@ -139,7 +136,7 @@ namespace DecaMovement.Base
             ApplyGravity(ref fallVelocity);
             // Apply velocity changes
             _rb.velocity = flatVelocity + fallVelocity;
-            _wasGrounded = false;
+            //_wasGrounded = false;
         }
 
         /// <summary>

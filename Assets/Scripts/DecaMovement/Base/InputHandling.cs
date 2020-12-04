@@ -2,8 +2,7 @@ using DecaMovement.Base;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace DecaMovement.Base
-{
+
     public class InputHandling : MonoBehaviour
     {
         public Transform playerView;     // Camera
@@ -18,8 +17,12 @@ namespace DecaMovement.Base
 
         internal Cmd CMD { get => _cmd; private set => _cmd = value; }
 
-        // Update is called once per frame
-        void Update()
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+    // Update is called once per frame
+    void Update()
         {
             if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
@@ -34,6 +37,7 @@ namespace DecaMovement.Base
                     Cursor.lockState = CursorLockMode.None;
                 }
             }
+            if(Core.Instance.PlayerState == PLAYERSTATE.DEAD) { return; }
             /* Camera rotation stuff, mouse controls this shit */
             rotX -= Input.GetAxisRaw("Mouse Y") * xMouseSensitivity * 0.02f;
             rotY += Input.GetAxisRaw("Mouse X") * yMouseSensitivity * 0.02f;
@@ -44,7 +48,7 @@ namespace DecaMovement.Base
             else if (rotX > 90)
                 rotX = 90;
 
-            this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
+            Core.Instance.Avatar.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
             playerView.rotation = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
             _cmd.airRotation = false;
             _cmd.forwardMove = Input.GetAxisRaw("Vertical");
@@ -54,9 +58,9 @@ namespace DecaMovement.Base
 
             // Set the camera's position to the transform
             playerView.position = new Vector3(
-                transform.position.x,
-                transform.position.y + playerViewYOffset,
-                transform.position.z);
+                Core.Instance.Avatar.position.x,
+                Core.Instance.Avatar.position.y + playerViewYOffset,
+                Core.Instance.Avatar.position.z);
         }
     }// EOF CLASS
-}
+
