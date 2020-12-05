@@ -10,3 +10,8 @@ public class RoomEvent : UnityEngine.Events.UnityEvent<ROOMEVENTS>
 {
 
 }
+[System.Serializable]
+public class TargetEvent : UnityEngine.Events.UnityEvent<TARGETSTATE>
+{
+
+}

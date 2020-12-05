@@ -49,6 +49,10 @@ public class ShotgunPellet : MonoBehaviour
                 DeSpawn();
                 return;
             }
+            if (hitInfo.collider.GetComponent<Target>())
+            {
+                hitInfo.collider.GetComponent<Target>().RegisterHit();
+            }
             Bounce(hitInfo, frameStep, bounced);
         }
         else
@@ -60,7 +64,7 @@ public class ShotgunPellet : MonoBehaviour
 
     private void Bounce(RaycastHit hit, float frameStep, int bounce)
     {
-        if (bounce >= _maxBounce)
+        if (bounce >= _maxBounce || hit.collider.tag == "NoBounce")
         {
             DeSpawn();
             return;

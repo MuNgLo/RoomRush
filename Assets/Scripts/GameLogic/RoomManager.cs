@@ -53,7 +53,6 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     private void OnCorridorEntryOpening()
     {
-        Debug.Log("laskdj");
         if (CurrentRoom.CurrentState == ROOMSTATE.PRE)
         {
             ActivateRoom();

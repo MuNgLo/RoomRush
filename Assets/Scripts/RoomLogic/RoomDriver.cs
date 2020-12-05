@@ -32,6 +32,27 @@ namespace RoomLogic
 
         public ROOMSTATE CurrentState { get => _currentState; set => _currentState = value; }
 
+        private Conditionscripts.ConditionBehaviour _conditionScript = null;
+
+        private void Start()
+        {
+            if (GetComponent<Conditionscripts.ConditionBehaviour>())
+            {
+                _conditionScript = GetComponent<Conditionscripts.ConditionBehaviour>();
+            }
+            else
+            {
+                Debug.LogError($"Roomdriver failed to find conditionscript in {name}");
+            }
+            _conditionScript.OnConditionClear.AddListener(OnConditionClear);
+        }
+
+        private void OnConditionClear()
+        {
+            CurrentState = ROOMSTATE.POST;
+            OnRoomClear?.Invoke(_parTime);
+        }
+
         internal float RoomUpdate(float deltaTime)
         {
             if (CurrentState != ROOMSTATE.ACTIVE)

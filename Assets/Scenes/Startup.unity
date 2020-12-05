@@ -252,7 +252,8 @@ MonoBehaviour:
   _currentRoom: {fileID: 0}
   _roomPile:
     _pile:
-    - {fileID: 38979171191686988, guid: 002ab2a86d8b3c148af203bd479c01e1, type: 3}
+    - {fileID: 5953226229824865930, guid: ed817256293f9cd4cb50d2b1575aac8d, type: 3}
+    - {fileID: 5953226229824865930, guid: ed817256293f9cd4cb50d2b1575aac8d, type: 3}
 --- !u!1 &727611481
 GameObject:
   m_ObjectHideFlags: 0

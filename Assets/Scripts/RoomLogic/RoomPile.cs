@@ -16,10 +16,17 @@ namespace RoomLogic
         [SerializeField]
         List<GameObject> _pile = new List<GameObject>();
 
+        private int _index = -1;
+
         internal GameObject GetNextRoom()
         {
             if(_pile.Count < 1) { Debug.LogError("NO ROOMS ON PILE IN ROOMMANAGER!! Can't get next room"); }
-            return _pile[0];
+            _index++;
+            if (_index >= _pile.Count)
+            {
+                _index = 0;
+            }
+            return _pile[_index];
         }
     }// eof class
 }
