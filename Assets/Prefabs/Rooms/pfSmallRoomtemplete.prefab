@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2894342822856643063}
   - component: {fileID: 1511004793477618575}
   - component: {fileID: 6870869774980863069}
+  - component: {fileID: 5694826747472200886}
   m_Layer: 0
   m_Name: pfSmallRoomtemplete
   m_TagString: Untagged
@@ -92,6 +93,21 @@ MonoBehaviour:
   SpawnPoint: {fileID: 0}
   Connectionpoint: {fileID: 7915897081077321756}
   _parTime: 5
+--- !u!114 &5694826747472200886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38979171191686988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc24ae5ce1deaaf45960bd3ecf4ffa0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnConditionClear:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &937610889513943426
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7513492605474236895}
   - component: {fileID: 2471309396836341328}
-  - component: {fileID: 5352877830386202753}
   - component: {fileID: 6546689290456137572}
   - component: {fileID: 3395829736984513334}
   - component: {fileID: 8192943441265138024}
   - component: {fileID: 9063153089003266889}
+  - component: {fileID: 908291109843467020}
   m_Layer: 0
   m_Name: pfShotgunPellet
   m_TagString: Untagged
@@ -44,47 +44,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9202767756267068094}
   m_Mesh: {fileID: -8876522209881343685, guid: 2a1c5bd8e88ff4f4a9e9aaf2e2c904cb, type: 3}
---- !u!23 &5352877830386202753
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9202767756267068094}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e8ac64228efaa424b975bd6c1165141d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6546689290456137572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d0c511b01f7764595acaceaf636db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TTL: 5
+  _TTL: 3
 --- !u!114 &3395829736984513334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +73,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1025
   _TTL: 1
-  _speed: 30
-  _maxBounce: 5
+  _speed: 40
+  _maxBounce: 3
   _prefabVFXBounce: {fileID: 7411853586407076836, guid: e5b98db0fb5887f44b73b3348e9f58cf,
     type: 3}
 --- !u!2083052967 &8192943441265138024
@@ -195,3 +154,44 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &908291109843467020
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9202767756267068094}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e8ac64228efaa424b975bd6c1165141d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

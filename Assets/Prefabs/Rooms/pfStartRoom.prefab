@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 1590204036225425048}
   - component: {fileID: 8065172748592222142}
   - component: {fileID: 1989699552024344667}
+  - component: {fileID: 5725346172870071049}
   m_Layer: 0
   m_Name: pfStartRoom
   m_TagString: Untagged
@@ -397,6 +398,21 @@ MonoBehaviour:
   Tier_Highest: -1
   Par_Time: 5
   Penatly_Time: 0
+--- !u!114 &5725346172870071049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096268652319772613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc24ae5ce1deaaf45960bd3ecf4ffa0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnConditionClear:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1205107159950081446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3171,15 +3187,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81abe9f31db4eb8448f46e6c89204e2a, type: 3}
---- !u!4 &7573458682671511705 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5891423172746871390, guid: 81abe9f31db4eb8448f46e6c89204e2a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4096268651088231111}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7737769228623735677 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033357574361731514, guid: 81abe9f31db4eb8448f46e6c89204e2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4096268651088231111}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7573458682671511705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5891423172746871390, guid: 81abe9f31db4eb8448f46e6c89204e2a,
     type: 3}
   m_PrefabInstance: {fileID: 4096268651088231111}
   m_PrefabAsset: {fileID: 0}
