@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2641530148780043022}
   - component: {fileID: 8356462289715478877}
   - component: {fileID: 253052324696064354}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: HeadChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 1659345422093655757}
   - component: {fileID: 7825991769668793176}
   - component: {fileID: 1894911525446368186}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: GroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

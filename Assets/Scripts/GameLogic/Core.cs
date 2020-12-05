@@ -56,14 +56,15 @@ public class Core : MonoBehaviour
         }
 
         _UIStateMan.GotToMenu("HUD");
-        Room startRoom = _roomMan.GenerateStartRoom(Vector3.zero, Vector3.forward);
+        RoomLogic.RoomDriver startRoom = _roomMan.GenerateStartRoom(Vector3.zero, Vector3.forward);
         if (!startRoom)
         {
             Debug.LogError("Startroom script returned as null");
         }
         _roomMan.GenerateCorridor(startRoom.Connectionpoint);
-        _playerMan.SpawnPlayer(startRoom.SpawnPoint);
+        _playerMan.SetViewRotation(startRoom.SpawnPoint.rotation);
         _playerMan.PlayerState = PLAYERSTATE.ALIVE;
+        _playerMan.SpawnPlayer(startRoom.SpawnPoint);
         _roomMan.SetRoomState(startRoom.InitialState);
         _runMan.StartTimer(60.0f); // feed how much time the player starts with
         _roomMan.ActivateRoom();
