@@ -68,7 +68,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.8437359, y: 2.5480006, z: 1.9777155}
-  m_Center: {x: -1.0044478, y: 0.32694626, z: 1.5539813}
+  m_Center: {x: -1.0044478, y: 0.32694626, z: -0.52}
 --- !u!114 &774510722368269520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +82,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isLocked: 1
+  OnDoorFullyClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2853253427728750893
 GameObject:
   m_ObjectHideFlags: 0

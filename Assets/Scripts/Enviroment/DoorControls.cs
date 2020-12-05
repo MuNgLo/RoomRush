@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider), typeof(Animator))]
 public class DoorControls : MonoBehaviour
 {
     [SerializeField]
     private bool _isLocked = true;
-
+    [HideInInspector]
+    public UnityEvent OnDoorFullyClosed;
+    public UnityEvent OnDoorOpening;
     private BoxCollider _trigger = null;
     private Animator _anims = null;
 
@@ -34,11 +37,16 @@ public class DoorControls : MonoBehaviour
     {
         _anims.SetBool("isOpen", false);
     }
+    /// <summary>
+    /// This is where we do stuff to looks when unlocked
+    /// </summary>
     private void UnLockDoor()
     {
         _isLocked = false;
     }
-
+    /// <summary>
+    /// This is where we do stuff to looks when locked
+    /// </summary>
     private void LockDoor()
     {
         _isLocked = true;
@@ -49,7 +57,12 @@ public class DoorControls : MonoBehaviour
     /// </summary>
     public void DoorClosedFully()
     {
+        OnDoorFullyClosed?.Invoke();
+    }
 
+    public void DoorOpening()
+    {
+        OnDoorOpening?.Invoke();
     }
 }
 

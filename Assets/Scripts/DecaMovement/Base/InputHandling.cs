@@ -1,16 +1,19 @@
 using DecaMovement.Base;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-    public class InputHandling : MonoBehaviour
+public class InputHandling : MonoBehaviour
     {
         public Transform playerView;     // Camera
         public float playerViewYOffset = 0.8f; // The height at which the camera is bound to
         public float xMouseSensitivity = 30.0f;
         public float yMouseSensitivity = 30.0f;
         // Camera rotations
+        [SerializeField]
         private float rotX = 0.0f;
+        [SerializeField]
         private float rotY = 0.0f;
 
         private Cmd _cmd = new Cmd() { };
@@ -62,5 +65,11 @@ using UnityEngine;
                 Core.Instance.Avatar.position.y + playerViewYOffset,
                 Core.Instance.Avatar.position.z);
         }
-    }// EOF CLASS
+
+    internal void SetViewRotations(Quaternion rotation)
+    {
+        rotX = rotation.eulerAngles.x;
+        rotY = rotation.eulerAngles.y;
+    }
+}// EOF CLASS
 

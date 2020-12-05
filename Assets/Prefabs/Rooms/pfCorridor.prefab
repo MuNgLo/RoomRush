@@ -1901,8 +1901,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7923206369661353558}
+  - component: {fileID: 4589649532611141129}
   - component: {fileID: 3970972881315140251}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pfCorridor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1932,6 +1933,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4589649532611141129
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7923206369661353559}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.3538933, y: 3.274619, z: 9.976264}
+  m_Center: {x: -0.95872307, y: 1.1373096, z: 6.003573}
 --- !u!114 &3970972881315140251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1944,8 +1958,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202d11c3afb6a98498f5d9b088055459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _connectionPoint: {fileID: 7607447537950471104}
   _entryDoor: {fileID: 4337786140092059659}
   _exitDoor: {fileID: 8072960400799489960}
+  _hasPlayerInside: 0
+  OnPlayerLockedInCorridor:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7923206369871281206
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,12 +4247,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e58ea38b67735fc4ca7ede477ae3ab5d, type: 3}
---- !u!4 &7180916413163045836 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6136939043346857751, guid: e58ea38b67735fc4ca7ede477ae3ab5d,
-    type: 3}
-  m_PrefabInstance: {fileID: 3930926576772922587}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4337786140092059659 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 774510722368269520, guid: e58ea38b67735fc4ca7ede477ae3ab5d,
@@ -4246,6 +4259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b39c887c314bc04888a01f54fb145a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7180916413163045836 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6136939043346857751, guid: e58ea38b67735fc4ca7ede477ae3ab5d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3930926576772922587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3941840654709156422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6228,6 +6247,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pfColumn
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021711220361659362, guid: 0d0292e2bad05b9429f18f114d5fdd34,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d0292e2bad05b9429f18f114d5fdd34, type: 3}

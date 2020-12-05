@@ -31,8 +31,13 @@ public class PlayerManager : MonoBehaviour
         _viewModelsCamera.SetActive(false);
     }
 
+    public void SetViewRotation(Quaternion rotation)
+    {
+        _playerInput.SetViewRotations(rotation);
+    }
     public void SpawnPlayer(Transform spawn)
     {
+        _playerInput.SetViewRotations(spawn.rotation);
         _playerAvatar = Instantiate(_prefabPlayerAvatar, spawn.position, spawn.rotation);
     }
 
