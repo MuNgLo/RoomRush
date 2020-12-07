@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,27 @@ public class UIStatemanager : MonoBehaviour
         HideAllMenus();
         _startMenu.SetActive(true);
         _currentMenu = _startMenu;
+    }
+    private void Start()
+    {
+        Core.Instance.Runs.OnStateChange.AddListener(OnRunStateChange);
+    }
+    private void OnRunStateChange(RUNSTATE state)
+    {
+        switch (state)
+        {
+            case RUNSTATE.PRERUN:
+                GotToMenu("MainMenu");
+                break;
+            case RUNSTATE.INRUN:
+                GotToMenu("HUD");
+                break;
+            case RUNSTATE.POSTRUN:
+                GotToMenu("PostRun");
+                break;
+            default:
+                break;
+        }
     }
 
     private void Update()

@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d0c511b01f7764595acaceaf636db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TTL: 3
+  _TTL: 1
 --- !u!114 &3395829736984513334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     m_Bits: 1025
   _TTL: 1
   _speed: 40
-  _maxBounce: 3
+  _maxBounce: 1
   _prefabVFXBounce: {fileID: 7411853586407076836, guid: e5b98db0fb5887f44b73b3348e9f58cf,
     type: 3}
 --- !u!2083052967 &8192943441265138024

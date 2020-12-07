@@ -53,7 +53,7 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     private void OnCorridorEntryOpening()
     {
-        if (CurrentRoom.CurrentState == ROOMSTATE.PRE)
+        if (CurrentRoom.CurrentRoomState == ROOMSTATE.PRE)
         {
             ActivateRoom();
         }
@@ -61,7 +61,7 @@ public class RoomManager : MonoBehaviour
 
     private void OnPlayerInCorridor()
     {
-        if(CurrentRoom.CurrentState == ROOMSTATE.POST)
+        if(CurrentRoom.CurrentRoomState == ROOMSTATE.POST)
         {
             GameObject.Destroy(CurrentRoom.gameObject);
             CorridorDriver corrDRV = _corridorA.GetComponent<CorridorDriver>();
@@ -129,6 +129,7 @@ public class RoomManager : MonoBehaviour
 
     private void OnRoomClearEvent(float arg)
     {
+        Core.Instance.Runs.RoomClear(arg);
         OpenExit();
     }
     private void OnRoomFailEvent(float arg)
@@ -137,21 +138,12 @@ public class RoomManager : MonoBehaviour
     }
     internal void ActivateRoom()
     {
-        switch (CurrentRoom.CurrentState)
-        {
-            case ROOMSTATE.PRE:
-                SetRoomState(ROOMSTATE.ACTIVE);
-                break;
-            case ROOMSTATE.ACTIVE:
-            case ROOMSTATE.POST:
-                Debug.LogError("Trying to activate a non PRE state room.");
-                break;
-        }
+        CurrentRoom.ActivateRoom();
     }
 
     internal void SetRoomState(ROOMSTATE initialState)
     {
-        CurrentRoom.CurrentState = initialState;
+        CurrentRoom.SetRoomState(initialState);
     }
     private void OpenExit()
     {

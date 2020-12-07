@@ -17,6 +17,6 @@ public class UIElementLifeTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _sign.text = Core.Instance.LifeTimer.ToString();
+        _sign.text = Core.Instance.Runs.TimerLife.ToString();
     }
 }

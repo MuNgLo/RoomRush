@@ -23,11 +23,11 @@ public class UIAPI : MonoBehaviour
 
     public void StartRun()
     {
-        _core.StartRun();
+        _core.Runs.StartRun();
     }
 
     public float RoomTime()
     {
-        return _core.RoomTimer;
+        return _core.Rooms.CurrentRoom.RoomTimer;
     }
 }

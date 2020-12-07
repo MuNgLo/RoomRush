@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace RoomLogic
 {
-    public enum EVENTCONNECTION { UNSET, CLEAR, FAIL, PARTIMEOUT, PENALTY }
+    public enum EVENTCONNECTION { UNSET, CLEAR, FAIL, PARTIMEOUT }
     public enum GROUPRESPONSE { NONE, DISABLE, ENABLE, TOGGLE}
+
+    
 }

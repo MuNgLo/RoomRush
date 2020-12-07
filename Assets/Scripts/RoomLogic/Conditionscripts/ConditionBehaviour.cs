@@ -7,5 +7,7 @@ namespace RoomLogic.Conditionscripts
     {
         [HideInInspector]
         public UnityEvent OnConditionClear;
+        [HideInInspector]
+        public ConditionFailEvent OnConditionFail;
     }
 }
