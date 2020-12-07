@@ -8,6 +8,8 @@ public class ShotgunPellet : MonoBehaviour
     public float _TTL = 1.0f;
     public float _speed = 10.0f;
     public int _maxBounce = 5;
+    private int bounced = 0;
+
     private float _castRadius = 1.0f;
     private float _knockBackForce = 50.0f; // DO NOT CHANGE THIS. Instead tweak mass of other objects
     public GameObject _prefabVFXBounce = null;
@@ -30,7 +32,7 @@ public class ShotgunPellet : MonoBehaviour
         MoveStep(frameStep, transform.position, transform.forward);
     }
 
-    private void MoveStep(float frameStep, Vector3 position, Vector3 direction, int bounced=0)
+    private void MoveStep(float frameStep, Vector3 position, Vector3 direction)
     {
         transform.LookAt(transform.position + direction);
         if (Physics.SphereCast(position, _castRadius, direction, out RaycastHit hitInfo, frameStep, _hittable))
@@ -42,7 +44,7 @@ public class ShotgunPellet : MonoBehaviour
                 // Bounce of kinematic
                 if (hitInfo.collider.GetComponent<Rigidbody>().isKinematic)
                 {
-                    Bounce(hitInfo, frameStep, bounced);
+                    Bounce(hitInfo, frameStep);
                     return;
                 }
                 KnockOtherRB(hitInfo);
@@ -53,7 +55,7 @@ public class ShotgunPellet : MonoBehaviour
             {
                 hitInfo.collider.GetComponent<Target>().RegisterHit();
             }
-            Bounce(hitInfo, frameStep, bounced);
+            Bounce(hitInfo, frameStep);
         }
         else
         {
@@ -62,9 +64,9 @@ public class ShotgunPellet : MonoBehaviour
         }
     }
 
-    private void Bounce(RaycastHit hit, float frameStep, int bounce)
+    private void Bounce(RaycastHit hit, float frameStep)
     {
-        if (bounce >= _maxBounce || hit.collider.tag == "NoBounce")
+        if (bounced >= _maxBounce || hit.collider.tag == "NoBounce")
         {
             DeSpawn();
             return;
@@ -72,7 +74,8 @@ public class ShotgunPellet : MonoBehaviour
         float distanceAfterBounce = frameStep - hit.distance;
         Vector3 deflectVector = Vector3.Reflect(transform.forward, hit.normal);
         transform.position = hit.point + deflectVector * distanceAfterBounce;
-        MoveStep(distanceAfterBounce, hit.point, deflectVector, bounce++);
+        bounced++;
+        MoveStep(distanceAfterBounce, hit.point, deflectVector);
     }
 
     private void DeSpawn()

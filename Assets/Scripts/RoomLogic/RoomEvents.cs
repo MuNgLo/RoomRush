@@ -7,13 +7,45 @@ using UnityEngine.Events;
 
 namespace RoomLogic
 {
-    public class RoomEventClear : UnityEvent<float>
+    /// <summary>
+    /// Float value here is used as partime remainder
+    /// </summary>
+    [System.Serializable]
+    public class RoomClearEvent : UnityEvent<float>
     {
     }
-    public class RoomEventFail : UnityEvent<float>
+    /// <summary>
+    /// Float value here is used as the fail penalty
+    /// </summary>
+    [System.Serializable]
+    public class RoomFailEvent : UnityEvent<float>
     {
     }
-    public class RoomEventParTimeOut : UnityEvent<float>
+    /// <summary>
+    /// This sidesteps Update() and allows to run a special delta on room objects
+    /// </summary>
+    [System.Serializable]
+    public class RoomUpdateEvent : UnityEvent<float>
     {
+    }
+    [System.Serializable]
+    /// <summary>
+    /// Float value here is used as the fail penalty
+    /// </summary>
+    public class RoomParTimeOutEvent : UnityEvent<float>
+    {
+    }
+    [System.Serializable]
+    public class ConditionFailEvent : UnityEngine.Events.UnityEvent<ROOMSTATE>
+    {
+
+    }
+    /// <summary>
+    /// Send the player avatar as the gameobject
+    /// </summary>
+    [System.Serializable]
+    public class RoomActivatedEvent : UnityEngine.Events.UnityEvent<UnityEngine.GameObject>
+    {
+
     }
 }

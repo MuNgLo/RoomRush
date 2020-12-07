@@ -64,7 +64,7 @@ namespace RoomLogic
 
         private void OnTriggerStay(Collider other)
         {
-            if (!other.GetComponent<DecaMovement.Base.Motor>())
+            if (other.tag != "PlayerAvatar")
             {
                 Debug.LogError($"{other.name} was detected in corridor {name} as a player. That should not be. Only player avatar with the motor should be in player layer");
                 return;

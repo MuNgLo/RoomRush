@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using UnityEngine.Events;
 
 [System.Serializable]
+public class RunStateChangeEvent : UnityEngine.Events.UnityEvent<RUNSTATE>
+{
+
+}
+[System.Serializable]
 public class RoomEvent : UnityEngine.Events.UnityEvent<ROOMEVENTS>
 {
 

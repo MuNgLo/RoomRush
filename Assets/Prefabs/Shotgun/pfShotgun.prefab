@@ -2033,6 +2033,7 @@ GameObject:
   - component: {fileID: 4672236725625343400}
   - component: {fileID: 542865028167766448}
   - component: {fileID: 7454826773847260933}
+  - component: {fileID: 2356431513192056382}
   m_Layer: 11
   m_Name: pfShotgun
   m_TagString: Untagged
@@ -2071,14 +2072,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513e795fd05a8ec41aaedb676f4f86d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fireRate: 60
+  _magSize: 4
+  _magCurrent: 4
+  _reloadSpeed: 1
+  _ejectionForce: 22
+  _ejectionPoint: {fileID: 6867185789516947950}
+  _flash: {fileID: 8119496569521204218}
   _shellPrefab: {fileID: 8969518899466100303, guid: e9d2a7e2546bcae44961851c0ec641dd,
     type: 3}
   _pelletPrefab: {fileID: 9202767756267068094, guid: 21bcf49952e8bac4a85c044896f98f26,
     type: 3}
-  _ejectionPoint: {fileID: 6867185789516947950}
+  _muzzleEffectPrefab: {fileID: 5914734217023289478, guid: de41edcdd2c58fc40b04af373d36b15f,
+    type: 3}
+  _sfxFire: {fileID: 8300000, guid: 21bd5be720b70774094ef3d6c87f8e37, type: 3}
   _patterns: {fileID: 6572982353804867852}
-  _ejectionForce: 22
-  _flash: {fileID: 8119496569521204218}
 --- !u!95 &7454826773847260933
 Animator:
   serializedVersion: 3
@@ -2098,6 +2106,103 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &2356431513192056382
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542281022790188987}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -4944888245369360374, guid: 40c52b84490f3854c9d45e4a9d29dd78,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8623173440173995602
 GameObject:
   m_ObjectHideFlags: 0
