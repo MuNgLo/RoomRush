@@ -8,9 +8,13 @@ namespace RoomLogic.RoomObjects
     {
         public LayerMask _LayerToLookFor;
         public int _CountNeeded = 1;
+        public int _canClearCount = 1;
+        public float _triggerCooldown = 1.0f;
 
+        private int _haveClearedCount = 0;
+        private float _tsLastTriggered = 0.0f;
         private ConditionBehaviour _conditionScript;
-
+        private bool _FireClearInLateUpdate = false;
         private void Awake()
         {
             GetComponent<BoxCollider>().enabled = false;
@@ -25,6 +29,7 @@ namespace RoomLogic.RoomObjects
         public override void RoomUpdate(float roomDeltaTime)
         {
             BoxCollider box = GetComponent<BoxCollider>();
+            if(Time.time < _tsLastTriggered + _triggerCooldown) { return; }
             RaycastHit[] hits = Physics.BoxCastAll(
                 transform.position + box.center + Vector3.up * box.size.y, 
                 box.size * 0.5f, 
@@ -35,10 +40,20 @@ namespace RoomLogic.RoomObjects
             if (hits.Length > 0)
             {
                 if (hits.Length >= _CountNeeded) {
-                    _conditionScript.RoomClear();
+                    _tsLastTriggered = Time.time;
+                    _haveClearedCount++;
+                    _FireClearInLateUpdate = true;
                 }
             }
         }
 
+        private void LateUpdate()
+        {
+            if (_FireClearInLateUpdate)
+            {
+                _FireClearInLateUpdate = false;
+                Core.Instance.Rooms.CurrentRoom.ForceRoomClear();
+            }
+        }
     }// EOF CLASS
 }

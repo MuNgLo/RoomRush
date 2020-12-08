@@ -17,6 +17,17 @@ public class Core : MonoBehaviour
     private PlayerManager _playerMan = null;
 
     public static Core Instance { get => _instance; private set { } }
+
+    internal string DebugText()
+    {
+        string NL = Environment.NewLine;
+        string response = $"Current Run State : {Runs.State}{NL}" +
+            $"Current Room State : {Rooms.CurrentRoomState}{NL}{NL}" +
+            Runs.Stats.ToString();
+
+        return response;
+    }
+
     public GameSettings Settings { get => _settings; private set { } }
     public RoomManager Rooms { get => _roomMan; private set { } }
     public RunManager Runs { get => _runMan; private set { } }

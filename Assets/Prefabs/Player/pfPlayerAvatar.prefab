@@ -75,8 +75,8 @@ MonoBehaviour:
   _jumpCooldown: 0.3
   _friction: 7
   _ground_accelerate: 23
-  _max_velocity_ground: 5
-  _air_accelerate: 2
-  _max_velocity_air: 5
+  _max_velocity_ground: 7
+  _air_accelerate: 5
+  _max_velocity_air: 7
   _wasGrounded: 1
   _tsJumpLast: 0

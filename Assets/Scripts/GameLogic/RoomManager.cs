@@ -6,33 +6,150 @@ using RoomLogic;
 
 public class RoomManager : MonoBehaviour
 {
-    public GameObject _startRoom = null;
+    public bool _debug = false;
+    #region GameObjects
+    public GameObject _prefabStartRoom = null;
     public GameObject _prefabCorridor = null;
     private GameObject _activeRooms = null; // The GO container for the currenty in play room objects
+    private GameObject _corridorA = null;
+    private GameObject _corridorB = null;
+
+    
+    #endregion
+
     [SerializeField]
     private RoomDriver _currentRoom = null;
+    private ROOMSTATE _currentRoomState = ROOMSTATE.PRE;
+
+    private float _currentRoomTime = 5.0f;
+    public float RoomTimer { get => _currentRoomTime; private set { } }
+
 
     [SerializeField]
     private RoomPile _roomPile = new RoomPile();
 
-    private GameObject _corridorA = null;
-    private GameObject _corridorB = null;
     private bool _useCorrA = true; // When using a corridor we use _corridorA if this is true. _corridorB if false.
 
     public RoomDriver CurrentRoom { get => _currentRoom; private set => _currentRoom = value; }
+    public ROOMSTATE CurrentRoomState { get => _currentRoomState; private set => _currentRoomState = value; }
+    public float CurrentRoomTime { get => _currentRoomTime; private set => _currentRoomTime = value; }
 
-   
+    [HideInInspector]
+    public RoomActivatedEvent OnRoomActivated = new RoomActivatedEvent();
 
 
-    internal float RunRoomTime(float deltaTime)
-    {
-        return CurrentRoom.RoomUpdate(deltaTime);
-    }
 
-  
 
     /// <summary>
-    /// Call this at start of a run to make 2 corridors we can use throughout the run
+    /// Runs all RoomUpdate()
+    /// Called and timed by runmanager
+    /// </summary>
+    /// <param name="deltaTime"></param>
+    /// <returns></returns>
+    internal float RunRoomTime(float deltaTime)
+    {
+        bool hasTimedOut = _currentRoomTime <= 0.0f; // Did we timeout last update?
+        if (!hasTimedOut)
+        {
+            _currentRoomTime -= deltaTime;
+            CurrentRoom.RoomUpdate(deltaTime);
+            if (_currentRoomTime <= 0.0f)
+            {
+                CurrentRoomState = ParTimeOut();
+                float remainder = _currentRoomTime;
+                _currentRoomTime = 0.0f;
+                return remainder;
+            }
+            return 0.0f;
+        }
+        return deltaTime;
+    }
+
+    private ROOMSTATE ParTimeOut()
+    {
+        switch (CurrentRoom.WhenParTimeOut)
+        {
+            case EVENTCONNECTION.UNSET:
+                break;
+            case EVENTCONNECTION.CLEAR:
+                _currentRoomTime = 0.0f;
+                CurrentRoom.ForceRoomClear();
+                break;
+            case EVENTCONNECTION.FAIL:
+                _currentRoomTime = 0.0f;
+                CurrentRoom.OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
+                break;
+            case EVENTCONNECTION.PARTIMEOUT:
+                CurrentRoom.OnRoomParTimeOut?.Invoke(0.0f);
+                _currentRoomTime = 0.0f;
+                break;
+            default:
+                break;
+        }
+
+        return CurrentRoomState;
+    }
+    /// <summary>
+    /// This flips the room over to active from pre state.
+    /// Room time will tic 
+    /// Runmanger only calls this on startroom
+    /// Normally it happens when corridor entry opens
+    /// </summary>
+    internal void ActivateRoom()
+    {
+        switch (_currentRoomState)
+        {
+            case ROOMSTATE.PRE:
+                CurrentRoomState = ROOMSTATE.ACTIVE;
+                OnRoomActivated?.Invoke(Core.Instance.Player.Avatar.gameObject);
+                break;
+            case ROOMSTATE.ACTIVE:
+            case ROOMSTATE.POST:
+                Debug.LogError("Trying to activate a non PRE state room.");
+                break;
+        }
+    }
+
+    internal void ChangeState(ROOMSTATE newState)
+    {
+        if (_debug) { Debug.Log($"RoomManager::ChangeState() newState = {newState}"); }
+        CurrentRoomState = newState;
+    }
+        
+
+    #region start of run things
+    /// <summary>
+    /// Runmanager calls this to setup the the startroom and corridors
+    /// Destroys and refreshes the room container
+    /// </summary>
+    /// <param name="location"></param>
+    /// <param name="rotation"></param>
+    /// <returns></returns>
+    public RoomDriver GenerateStartRoom(Vector3 location, Vector3 rotation)
+    {
+        //redo room container
+        GameObject.Destroy(_activeRooms);
+        _activeRooms = new GameObject("GENERATEDROOMS");
+        _activeRooms.transform.position = Vector3.zero;
+        _activeRooms.transform.rotation = Quaternion.identity;
+        // Make the two corridors
+        PrepCorridors();
+        // make start room
+        GameObject room = Instantiate(_prefabStartRoom, location, Quaternion.LookRotation(rotation, Vector3.up));
+        room.transform.SetParent(_activeRooms.transform);
+        if (!room.GetComponent<RoomDriver>())
+        {
+            Debug.LogError("Startroom script missing on startroom prefab!");
+        }
+        CurrentRoom = room.GetComponent<RoomDriver>();
+        CurrentRoom.OnRoomClear.AddListener(OnRoomClearEvent);
+        CurrentRoom.OnRoomFail.AddListener(OnRoomFailEvent);
+        CurrentRoomTime = CurrentRoom.GetComponent<RoomDefinition>().Par_Time;
+        CurrentRoomState = ROOMSTATE.PRE;
+        return room.GetComponent<RoomDriver>();
+    }
+    /// <summary>
+    /// Called when generating the startroom to make 2 corridors we can use throughout the run
     /// </summary>
     private void PrepCorridors()
     {
@@ -47,35 +164,44 @@ public class RoomManager : MonoBehaviour
         _corridorB.GetComponent<CorridorDriver>().OnCorridorEntryOpening.AddListener(OnCorridorEntryOpening);
         _corridorB.SetActive(false);
     }
-
+    #endregion
     /// <summary>
     /// When corridor entry opens into next room we activate it.
     /// </summary>
     private void OnCorridorEntryOpening()
     {
-        if (CurrentRoom.CurrentRoomState == ROOMSTATE.PRE)
+        if (CurrentRoomState == ROOMSTATE.PRE)
         {
             ActivateRoom();
         }
     }
-
+ 
+    /// <summary>
+    /// This listen for when player enters a corridor and the door closes behind
+    /// Then this fires. despawns teh previous room and Setsup the next room
+    /// </summary>
     private void OnPlayerInCorridor()
     {
-        if(CurrentRoom.CurrentRoomState == ROOMSTATE.POST)
+        if (_debug) { Debug.Log($"RoomManager::PlayerInCorridor() CurrentRoomState = {CurrentRoomState}"); }
+        if(CurrentRoomState == ROOMSTATE.POST)
         {
             GameObject.Destroy(CurrentRoom.gameObject);
             CorridorDriver corrDRV = _corridorA.GetComponent<CorridorDriver>();
             if (_useCorrA) { corrDRV = _corridorB.GetComponent<CorridorDriver>(); }
             RoomDriver newRoom = SpawnNextRoom(corrDRV.ConnectionPoint.position, corrDRV.ConnectionPoint.rotation);
-            GenerateCorridor(newRoom.Connectionpoint);
+            CurrentRoomState = ROOMSTATE.PRE;
+            
+            PlaceCorridor(newRoom.Connectionpoint);
             OpenEntry();
         }
     }
 
-    public RoomDriver SpawnNextRoom(Vector3 location, Vector3 rotation)
-    {
-        return SpawnNextRoom(location, Quaternion.LookRotation(rotation, Vector3.up));
-    }
+    /// <summary>
+    /// This gets the next room from the pile and instantiate it
+    /// </summary>
+    /// <param name="location"></param>
+    /// <param name="rotation"></param>
+    /// <returns></returns>
     public RoomDriver SpawnNextRoom(Vector3 location, Quaternion rotation)
     {
         GameObject room = Instantiate(_roomPile.GetNextRoom(), location, rotation);
@@ -87,11 +213,15 @@ public class RoomManager : MonoBehaviour
         CurrentRoom = room.GetComponent<RoomDriver>();
         CurrentRoom.OnRoomClear.AddListener(OnRoomClearEvent);
         CurrentRoom.OnRoomFail.AddListener(OnRoomFailEvent);
+        CurrentRoomTime = CurrentRoom.GetComponent<RoomDefinition>().Par_Time;
         return room.GetComponent<RoomDriver>();
     }
 
-
-    public void GenerateCorridor(Transform tr)
+    /// <summary>
+    /// This takes an unused corridor and places where requested
+    /// </summary>
+    /// <param name="tr"></param>
+    public void PlaceCorridor(Transform tr)
     {
         GameObject corr = null;
         if (_useCorrA)
@@ -108,45 +238,31 @@ public class RoomManager : MonoBehaviour
         corr.transform.rotation = tr.rotation;
         corr.SetActive(true);
     }
-    public RoomDriver GenerateStartRoom(Vector3 location, Vector3 rotation)
+    /// <summary>
+    /// Listens to the room driver clear event
+    /// Opens the door to the corridor and informs
+    /// the runmanager
+    /// </summary>
+    private void OnRoomClearEvent()
     {
-        GameObject.Destroy(_activeRooms);
-        _activeRooms = new GameObject("GENERATEDROOMS");
-        _activeRooms.transform.position = Vector3.zero;
-        _activeRooms.transform.rotation = Quaternion.identity;
-        PrepCorridors();
-        GameObject room = Instantiate(_startRoom, location, Quaternion.LookRotation(rotation, Vector3.up));
-        room.transform.SetParent(_activeRooms.transform);
-        if (!room.GetComponent<RoomDriver>())
-        {
-            Debug.LogError("Startroom script missing on startroom prefab!");
-        }
-        CurrentRoom = room.GetComponent<RoomDriver>();
-        CurrentRoom.OnRoomClear.AddListener(OnRoomClearEvent);
-        CurrentRoom.OnRoomFail.AddListener(OnRoomFailEvent);
-        return room.GetComponent<RoomDriver>();
-    }
-
-    private void OnRoomClearEvent(float arg)
-    {
-        Core.Instance.Runs.RoomClear(arg);
+        Core.Instance.Runs.RoomCleared(_currentRoomTime);
         OpenExit();
     }
-    private void OnRoomFailEvent(float arg)
+    /// <summary>
+    /// Listens to the room driver fail event
+    /// Opens the door to the corridor and informs
+    /// the runmanager
+    /// </summary>
+    /// <param name="penalty"></param>
+    private void OnRoomFailEvent(float penalty)
     {
-        Core.Instance.Runs.RoomFail(arg);
-        OpenExit();
-    }
-    internal void ActivateRoom()
-    {
-        CurrentRoom.ActivateRoom();
+        Core.Instance.Runs.RoomFail(penalty);
     }
 
-    internal void SetRoomState(ROOMSTATE initialState)
-    {
-        CurrentRoom.SetRoomState(initialState);
-    }
-    private void OpenExit()
+    /// <summary>
+    /// Opens the exit from the current room
+    /// </summary>
+    internal void OpenExit()
     {
         if (!_useCorrA)
         {
@@ -155,8 +271,6 @@ public class RoomManager : MonoBehaviour
         else
         {
             _corridorB.GetComponent<CorridorDriver>().OpenExit();
-
-
         }
     }
     private void OpenEntry()

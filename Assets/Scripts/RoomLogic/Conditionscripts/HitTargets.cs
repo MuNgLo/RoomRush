@@ -43,20 +43,7 @@ namespace RoomLogic.Conditionscripts
                 }
             }
         }
-        /// <summary>
-        /// This is the method called to raise the clear event
-        /// </summary>
-        override public void RoomClear()
-        {
-            OnConditionClear?.Invoke();
-        }
-        /// <summary>
-        /// This is the method called to raise the fail event
-        /// </summary>
-        override public void RoomFail()
-        {
-            OnConditionFail?.Invoke();
-        }
+        
 
     }// EOF CLASS
 }

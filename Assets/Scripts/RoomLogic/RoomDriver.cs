@@ -22,8 +22,6 @@ namespace RoomLogic
         [HideInInspector]
         public RoomUpdateEvent OnRoomUpdate = new RoomUpdateEvent(); // Runs the Update() replacement for all RoomObjectBehaviours
         [HideInInspector]
-        public RoomActivatedEvent OnRoomActivated = new RoomActivatedEvent();
-        [HideInInspector]
         public RoomClearEvent OnRoomClear = new RoomClearEvent();
         [HideInInspector]
         public RoomFailEvent OnRoomFail = new RoomFailEvent();
@@ -31,18 +29,10 @@ namespace RoomLogic
         public RoomParTimeOutEvent OnRoomParTimeOut = new RoomParTimeOutEvent();
         #endregion
 
-        public ROOMSTATE InitialState { get => _initialState; private set { } }
-        public ROOMSTATE CurrentRoomState { get => _currentState; set => _currentState = value; }
-        public float RoomTimer { get => _currentRoomTime; private set { } }
-
-        private float _currentRoomTime = 5.0f;
-        private readonly ROOMSTATE _initialState = ROOMSTATE.PRE;
-        private ROOMSTATE _currentState = ROOMSTATE.PRE;
         private ConditionBehaviour _conditionScript = null;
 
         private void Start()
         {
-            _currentRoomTime = GetComponent<RoomDefinition>().Par_Time;
             if (GetComponent<ConditionBehaviour>())
             {
                 _conditionScript = GetComponent<ConditionBehaviour>();
@@ -52,7 +42,7 @@ namespace RoomLogic
                 Debug.LogError($"Roomdriver failed to find conditionscript in {name}");
             }
             _conditionScript.OnConditionClear.AddListener(OnConditionClear);
-            _conditionScript.OnConditionFail.AddListener(OnConditionfail);
+            _conditionScript.OnConditionFail.AddListener(OnConditionFail);
             // Init all room objects
             foreach (RoomObjectBehaviour roomObject in GetComponentsInChildren<RoomObjectBehaviour>())
             {
@@ -60,91 +50,55 @@ namespace RoomLogic
             }
         }
         /// <summary>
-        /// This fires the roomDriver roomfail event. It sends what is needed and roommanager listens, do changes to room and informs runmanager about the fail and values.
+        /// This fires the roomDriver OnRoomFail event. 
+        /// It sends what is needed and roommanager listens.
+        /// Only fires in active room.
         /// </summary>
-        private void OnConditionfail()
+        private void OnConditionFail()
         {
-            if (_debug) { Debug.Log("RoomDriver()::OnConditionFail Fired!"); }
-            CurrentRoomState = ROOMSTATE.POST;
-            OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
+            if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
+            {
+                if (_debug) { Debug.Log("RoomDriver()::OnConditionFail Fired!"); }
+                OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
+            }
         }
+        /// <summary>
+        /// This fires the roomDriver OnRoomClear event. 
+        /// It sends what is needed and roommanager listens.
+        /// Only fires in active room.
+        /// </summary>
         private void OnConditionClear()
         {
-            if (_debug) { Debug.Log("RoomDriver()::OnConditionClear Fired!"); }
-            CurrentRoomState = ROOMSTATE.POST;
-            OnRoomClear?.Invoke(_currentRoomTime);
-        }
-
-        internal float RoomUpdate(float deltaTime)
-        {
-            if (CurrentRoomState != ROOMSTATE.ACTIVE)
+            if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
             {
-                Debug.Log("Trying to run time in a non active room");
-                return 0.0f;
+                if (_debug) { Debug.Log("RoomDriver()::OnConditionClear Fired!"); }
+                OnRoomClear?.Invoke();
             }
+        }
+        /// <summary>
+        /// This runs same code as when a condition gets fulfullid
+        /// Resulting in RoomClearEvent getting raised
+        /// </summary>
+        internal void ForceRoomClear()
+        {
+            OnConditionClear();
+        }
+        /// <summary>
+        /// This runs same code as when a condition goes fail
+        /// Resulting in RoomFailEvent getting raised
+        /// </summary>
+        internal void ForceRoomFail()
+        {
+            OnConditionFail();
+        }
+        /// <summary>
+        /// This runs the RoomUpdate on all roomobjects
+        /// through the OnRoomUpdate event
+        /// </summary>
+        /// <param name="deltaTime"></param>
+        internal void RoomUpdate(float deltaTime)
+        {
             OnRoomUpdate?.Invoke(deltaTime);
-
-            bool hasTimedOut = _currentRoomTime <= 0.0f; // Did we timeout last update?
-            if (hasTimedOut)
-            {
-                return deltaTime;
-            }
-            else
-            {
-                _currentRoomTime -= deltaTime; 
-                if (_currentRoomTime <= 0.0f)
-                {
-                    ParTimeOut();
-                    float remainder = _currentRoomTime;
-                    _currentRoomTime = 0.0f;
-                    return remainder;
-                }
-                return 0.0f;
-            }
-        }
-        internal void ActivateRoom()
-        {
-            switch (_currentState)
-            {
-                case ROOMSTATE.PRE:
-                    SetRoomState(ROOMSTATE.ACTIVE);
-                    OnRoomActivated?.Invoke(Core.Instance.Player.Avatar.gameObject);
-                    break;
-                case ROOMSTATE.ACTIVE:
-                case ROOMSTATE.POST:
-                    Debug.LogError("Trying to activate a non PRE state room.");
-                    break;
-            }
-        }
-        internal void SetRoomState(ROOMSTATE initialState)
-        {
-            _currentState = initialState;
-        }
-        private void ParTimeOut()
-        {
-            switch (WhenParTimeOut)
-            {
-                case EVENTCONNECTION.UNSET:
-                    break;
-                case EVENTCONNECTION.CLEAR:
-                    _currentRoomTime = 0.0f;
-                    CurrentRoomState = ROOMSTATE.POST;
-                    OnRoomClear?.Invoke(0.0f);
-                    break;
-                case EVENTCONNECTION.FAIL:
-                    _currentRoomTime = 0.0f;
-                    CurrentRoomState = ROOMSTATE.POST;
-                    OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
-                    break;
-                case EVENTCONNECTION.PARTIMEOUT:
-                    _currentRoomTime = 0.0f;
-                    OnRoomParTimeOut?.Invoke(0.0f);
-                    break;
-                default:
-                    break;
-            }
-
-            
         }
     }//EOF CLASS
 }

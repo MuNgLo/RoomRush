@@ -28,6 +28,6 @@ public class UIAPI : MonoBehaviour
 
     public float RoomTime()
     {
-        return _core.Rooms.CurrentRoom.RoomTimer;
+        return _core.Rooms.CurrentRoomTime;
     }
 }

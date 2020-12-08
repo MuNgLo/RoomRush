@@ -94,7 +94,7 @@ namespace RoomLogic
                     break;
             }
         }
-        private void OnRoomClear(float arg0)
+        private void OnRoomClear()
         {
             switch (ConWhenOnClear)
             {
@@ -106,6 +106,7 @@ namespace RoomLogic
                     ConEnable();
                     break;
                 case GROUPRESPONSE.TOGGLE:
+                    ConToggle();
                     break;
                 default:
                     break;
@@ -165,6 +166,16 @@ namespace RoomLogic
             foreach (GameObject mb in _controlled)
             {
                 mb.SetActive(false);
+            }
+        }
+        /// <summary>
+        /// Iterate over array of monobehaviours on same GameObject and enable them
+        /// </summary>
+        internal void ConToggle()
+        {
+            foreach (GameObject mb in _controlled)
+            {
+                mb.SetActive(!mb.activeSelf);
             }
         }
         #endregion

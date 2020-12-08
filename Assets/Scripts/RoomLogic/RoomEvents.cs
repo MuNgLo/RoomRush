@@ -11,7 +11,7 @@ namespace RoomLogic
     /// Float value here is used as partime remainder
     /// </summary>
     [System.Serializable]
-    public class RoomClearEvent : UnityEvent<float>
+    public class RoomClearEvent : UnityEvent
     {
     }
     /// <summary>
