@@ -37,6 +37,16 @@ public class Cmd
 public class RunStats
 {
     internal float GainedClearTime = 0.0f;
-    internal int RoomCleared;
+    internal int RoomCleared = 0;
+    internal int RoomFailed = 0;
+    internal float GainedPenaltyTime;
+    override public string ToString()
+    {
+        string NL = System.Environment.NewLine;
+        return $"Rooms Cleared  {RoomCleared}{NL}" +
+            $"Rooms Failed  {RoomFailed}{NL}" +
+            $"Gained Clear Time  {GainedClearTime}{NL}" +
+            $"Penalty Time  {GainedPenaltyTime}";
+    }
 }
 

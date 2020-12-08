@@ -7,6 +7,7 @@ namespace RoomLogic
     [RequireComponent(typeof(RoomGroups), typeof(RoomDefinition))]
     public class RoomDriver : MonoBehaviour
     {
+        public bool _debug = false;
         // rework these to auto and verbose
         public Transform SpawnPoint;
         public Transform Connectionpoint;
@@ -37,14 +38,14 @@ namespace RoomLogic
         private float _currentRoomTime = 5.0f;
         private readonly ROOMSTATE _initialState = ROOMSTATE.PRE;
         private ROOMSTATE _currentState = ROOMSTATE.PRE;
-        private Conditionscripts.ConditionBehaviour _conditionScript = null;
+        private ConditionBehaviour _conditionScript = null;
 
         private void Start()
         {
             _currentRoomTime = GetComponent<RoomDefinition>().Par_Time;
-            if (GetComponent<Conditionscripts.ConditionBehaviour>())
+            if (GetComponent<ConditionBehaviour>())
             {
-                _conditionScript = GetComponent<Conditionscripts.ConditionBehaviour>();
+                _conditionScript = GetComponent<ConditionBehaviour>();
             }
             else
             {
@@ -52,19 +53,24 @@ namespace RoomLogic
             }
             _conditionScript.OnConditionClear.AddListener(OnConditionClear);
             _conditionScript.OnConditionFail.AddListener(OnConditionfail);
+            // Init all room objects
             foreach (RoomObjectBehaviour roomObject in GetComponentsInChildren<RoomObjectBehaviour>())
             {
-                roomObject.RoomEventsHookup(this);
+                roomObject.RoomObjectInit(this, _conditionScript);
             }
         }
-
-        private void OnConditionfail(ROOMSTATE newstate)
+        /// <summary>
+        /// This fires the roomDriver roomfail event. It sends what is needed and roommanager listens, do changes to room and informs runmanager about the fail and values.
+        /// </summary>
+        private void OnConditionfail()
         {
-            CurrentRoomState = newstate;
-            OnRoomClear?.Invoke(_currentRoomTime);
+            if (_debug) { Debug.Log("RoomDriver()::OnConditionFail Fired!"); }
+            CurrentRoomState = ROOMSTATE.POST;
+            OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
         }
         private void OnConditionClear()
         {
+            if (_debug) { Debug.Log("RoomDriver()::OnConditionClear Fired!"); }
             CurrentRoomState = ROOMSTATE.POST;
             OnRoomClear?.Invoke(_currentRoomTime);
         }

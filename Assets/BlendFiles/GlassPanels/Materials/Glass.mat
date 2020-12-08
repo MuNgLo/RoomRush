@@ -60,20 +60,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_5efae06ff471491d994f0c22f1828297: 100
-    - Vector1_78832ab50c1745b382543083735000a0: 0.27
+    - Vector1_78832ab50c1745b382543083735000a0: 0.492
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
-    - _AlphaDstBlend: 1
+    - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
-    - _BlendMode: 1
+    - _BlendMode: 0
     - _CullMode: 2
     - _CullModeForward: 2
     - _DepthOffsetEnable: 0
     - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 2
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _OpaqueCullMode: 2

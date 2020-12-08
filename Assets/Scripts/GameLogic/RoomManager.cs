@@ -134,6 +134,7 @@ public class RoomManager : MonoBehaviour
     }
     private void OnRoomFailEvent(float arg)
     {
+        Core.Instance.Runs.RoomFail(arg);
         OpenExit();
     }
     internal void ActivateRoom()

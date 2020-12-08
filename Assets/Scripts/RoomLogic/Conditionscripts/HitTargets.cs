@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using RoomLogic.RoomObjects;
 
 namespace RoomLogic.Conditionscripts
 {
@@ -34,7 +30,7 @@ namespace RoomLogic.Conditionscripts
             }
         }
 
-        private void ReEvaluate()
+        public void ReEvaluate()
         {
             int count = 0;
             foreach(Target target in _targets)
@@ -42,15 +38,25 @@ namespace RoomLogic.Conditionscripts
                 if(target.State == _StateToCount) { count++; }
                 if(count >= _numberToHit)
                 {
-                    RaiseRoomClear();
+                    RoomClear();
                     return;
                 }
             }
         }
-
-        private void RaiseRoomClear()
+        /// <summary>
+        /// This is the method called to raise the clear event
+        /// </summary>
+        override public void RoomClear()
         {
             OnConditionClear?.Invoke();
         }
+        /// <summary>
+        /// This is the method called to raise the fail event
+        /// </summary>
+        override public void RoomFail()
+        {
+            OnConditionFail?.Invoke();
+        }
+
     }// EOF CLASS
 }

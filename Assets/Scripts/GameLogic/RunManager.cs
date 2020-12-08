@@ -53,6 +53,8 @@ public class RunManager : MonoBehaviour
         {
             Debug.LogWarning("RunManager() Trying to start a run while player is alive");
         }
+        //reset stats
+        _stats = new RunStats();
         State = RUNSTATE.INRUN;
 
         RoomLogic.RoomDriver startRoom = Core.Instance.Rooms.GenerateStartRoom(Vector3.zero, Vector3.forward);
@@ -82,10 +84,20 @@ public class RunManager : MonoBehaviour
         Core.Instance.Player.State = PLAYERSTATE.DEAD;
     }
 
-    internal void RoomClear(float arg)
+    internal void RoomClear(float gainedTime)
     {
-        _timerLife += arg;
-        Stats.GainedClearTime += arg;
+        Debug.Log($"RunManager::RoomClear() gained = {gainedTime}  LifeTime = {TimerLife} Both = {gainedTime + TimerLife}");
+        _timerLife = TimerLife + gainedTime;
+        Stats.GainedClearTime += gainedTime;
         Stats.RoomCleared++;
     }
+    internal void RoomFail(float penalty)
+    {
+        Debug.Log($"RunManager::RoomFail() penalty = {penalty}");
+        _timerLife -= penalty;
+        Stats.GainedPenaltyTime += penalty;
+        Stats.RoomFailed++;
+    }
+
+    
 }

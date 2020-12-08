@@ -36,7 +36,7 @@ namespace RoomLogic
     {
     }
     [System.Serializable]
-    public class ConditionFailEvent : UnityEngine.Events.UnityEvent<ROOMSTATE>
+    public class ConditionFailEvent : UnityEngine.Events.UnityEvent
     {
 
     }
