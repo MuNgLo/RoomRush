@@ -19,7 +19,7 @@ public class Wallwart : RoomLogic.RoomObjectBehaviour
         _anims = GetComponent<Animator>();
     }
 
-    public override void RoomEventsHookup(RoomLogic.RoomDriver roomDriver)
+    public override void RoomObjectInit(RoomLogic.RoomDriver roomDriver, RoomLogic.ConditionBehaviour conditionScript)
     {
         roomDriver.OnRoomActivated.AddListener(OnRoomActivated);
         roomDriver.OnRoomUpdate.AddListener(RoomUpdate);

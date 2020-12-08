@@ -38,8 +38,12 @@ public class ShotgunPellet : MonoBehaviour
         if (Physics.SphereCast(position, _castRadius, direction, out RaycastHit hitInfo, frameStep, _hittable))
         {
             MakeHitEffect(hitInfo);
-            // Resolve hit
-            if (hitInfo.collider.GetComponent<Rigidbody>())
+            if (hitInfo.collider.GetComponent<RoomLogic.RoomObjects.WhenHit>())
+            {
+                hitInfo.collider.GetComponent<RoomLogic.RoomObjects.WhenHit>().TakeHit();
+            }
+                // Resolve hit
+                if (hitInfo.collider.GetComponent<Rigidbody>())
             {
                 // Bounce of kinematic
                 if (hitInfo.collider.GetComponent<Rigidbody>().isKinematic)
@@ -51,9 +55,9 @@ public class ShotgunPellet : MonoBehaviour
                 DeSpawn();
                 return;
             }
-            if (hitInfo.collider.GetComponent<Target>())
+            if (hitInfo.collider.GetComponent<RoomLogic.RoomObjects.Target>())
             {
-                hitInfo.collider.GetComponent<Target>().RegisterHit();
+                hitInfo.collider.GetComponent<RoomLogic.RoomObjects.Target>().RegisterHit();
             }
             Bounce(hitInfo, frameStep);
         }

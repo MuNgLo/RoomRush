@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hittable:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 17409
   _TTL: 1
   _speed: 40
   _maxBounce: 1
