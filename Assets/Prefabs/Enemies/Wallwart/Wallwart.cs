@@ -21,7 +21,9 @@ public class Wallwart : RoomLogic.RoomObjectBehaviour
 
     public override void RoomObjectInit(RoomLogic.RoomDriver roomDriver, RoomLogic.ConditionBehaviour conditionScript)
     {
-        roomDriver.OnRoomActivated.AddListener(OnRoomActivated);
+        //roomDriver.OnRoomActivated.AddListener(OnRoomActivated);
+        Core.Instance.Rooms.OnRoomActivated.AddListener(OnRoomActivated);
+
         roomDriver.OnRoomUpdate.AddListener(RoomUpdate);
     }
 

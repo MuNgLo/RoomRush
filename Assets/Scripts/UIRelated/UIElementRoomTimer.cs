@@ -19,6 +19,6 @@ public class UIElementRoomTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _sign.text = Core.Instance.Rooms.CurrentRoom.RoomTimer.ToString();
+        _sign.text = Core.Instance.Rooms.CurrentRoomTime.ToString();
     }
 }

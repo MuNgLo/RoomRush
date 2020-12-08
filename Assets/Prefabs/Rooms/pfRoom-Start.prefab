@@ -379,9 +379,6 @@ MonoBehaviour:
   OnRoomUpdate:
     m_PersistentCalls:
       m_Calls: []
-  OnRoomActivated:
-    m_PersistentCalls:
-      m_Calls: []
   OnRoomClear:
     m_PersistentCalls:
       m_Calls: []
@@ -422,15 +419,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4096268652319772613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65dc1635852a47340bc5370d5baf4f41, type: 3}
+  m_Script: {fileID: 11500000, guid: fc24ae5ce1deaaf45960bd3ecf4ffa0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debug: 0
   OnConditionClear:
     m_PersistentCalls:
       m_Calls: []
   OnConditionFail:
     m_PersistentCalls:
       m_Calls: []
+  _clearsNeeded: 1
+  _failsNeeded: 1
 --- !u!1001 &1205107159950081446
 PrefabInstance:
   m_ObjectHideFlags: 0
