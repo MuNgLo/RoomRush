@@ -15,6 +15,6 @@ namespace RoomLogic
         public int Tier_Highest = -1;
         public float Par_Time = 30.0f;
         public float Penatly_Time = 0.0f;
-
+        public float Penalty_Hurt = 1.0f;
     }// EOF CLASS
 }

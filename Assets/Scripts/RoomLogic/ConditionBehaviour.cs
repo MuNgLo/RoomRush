@@ -16,6 +16,8 @@ namespace RoomLogic
         public int _failsNeeded = 1;
         private int _fails = 0;
 
+        
+
         /// <summary>
         /// This is the method called to raise the clear event
         /// </summary>

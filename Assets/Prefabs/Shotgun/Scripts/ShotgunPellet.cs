@@ -42,8 +42,16 @@ public class ShotgunPellet : MonoBehaviour
             {
                 hitInfo.collider.GetComponent<RoomLogic.RoomObjects.WhenHit>().TakeHit();
             }
-                // Resolve hit
-                if (hitInfo.collider.GetComponent<Rigidbody>())
+
+            if (hitInfo.collider.GetComponent<Enemies.Hitbox>())
+            {
+                hitInfo.collider.GetComponent<Enemies.Hitbox>().RecieveHit(transform.forward * _knockBackForce);
+                DeSpawn();
+                return;
+            }
+
+            // Resolve hit
+            if (hitInfo.collider.GetComponent<Rigidbody>())
             {
                 // Bounce of kinematic
                 if (hitInfo.collider.GetComponent<Rigidbody>().isKinematic)

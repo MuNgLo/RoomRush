@@ -3,8 +3,15 @@ public class GameSettings
 {
     public RunSettings Runs;
     public WeaponSettings Weapon;
+    public RoomSettings Room;
+    public EnemySettings Enemies;
 }
-
+[System.Serializable]
+public class RoomSettings
+{
+    public float LavaCoolDown;
+    public float LavaDPS;
+}
 
 [System.Serializable]
 public class RunSettings
@@ -13,6 +20,14 @@ public class RunSettings
     public float StartTime = 60.0f;
     public ulong StartSeed = 1337;
 
+}
+[System.Serializable]
+public class EnemySettings
+{
+    public float StunTime = 1.5f;
+    public float RagDrag = 3.0f;
+    public float RagPushModifier = 0.02f;
+    public float RagMaxSpeed = 7.0f;
 }
 [System.Serializable]
 public class WeaponSettings
@@ -48,5 +63,15 @@ public class RunStats
             $"Gained Clear Time  {GainedClearTime}{NL}" +
             $"Penalty Time  {GainedPenaltyTime}";
     }
+}
+
+[System.Serializable]
+public class AudioTierSettings
+{
+
+    public UnityEngine.AudioClip Clip = null;
+    public float MaxVolume = 1.0f;
+    public float FadeInTime = 3.0f;
+    public float FadeOutTime = 3.0f;
 }
 

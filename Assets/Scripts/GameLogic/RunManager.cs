@@ -17,13 +17,14 @@ public class RunManager : MonoBehaviour
     [HideInInspector]
     public RunStateChangeEvent OnStateChange;
 
-    public float TimerLife { get => _timerLife; private set { Debug.Log($"TimerLife SET({value}) _timerLife = {_timerLife}"); _timerLife = value; } }
+    public float TimerLife { get => _timerLife; private set => _timerLife = value; }
     public RUNSTATE State { get => _state; private set { _state = value; OnStateChange?.Invoke(_state); } }
 
     public RunStats Stats { get => _stats; private set => _stats = value; }
 
     private void Awake()
     {
+        if (!this.enabled) { enabled = true; }
         //_RNG = new PRNGMarsenneTwister();
         //_RNG.init_genrand(Core.Instance.Settings.Runs.StartSeed);
     }
@@ -31,14 +32,17 @@ public class RunManager : MonoBehaviour
 
     private void Update()
     {
+        
         // When in active run and a room is active this will run the room time Update
         if (State == RUNSTATE.INRUN)
         {
+            float frameTimerLifeLoss = 0.0f;
             if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
             {
-                _timerLife -= Core.Instance.Rooms.RunRoomTime(Time.deltaTime);
+                frameTimerLifeLoss -= Core.Instance.Rooms.RunRoomTime(Time.deltaTime);
             }
-            // Chekc if player has time left
+            TimerLife -= frameTimerLifeLoss;
+            // Check if player has time left
             if (TimerLife <= 0.0f)
             {
                 EndRun();
@@ -101,11 +105,19 @@ public class RunManager : MonoBehaviour
     }
     internal void RoomFail(float penalty)
     {
-        Debug.Log($"RunManager::RoomFail() penalty = {penalty}");
+        if (_debug) { Debug.Log($"RunManager::RoomFail() penalty = {penalty}"); }
         _timerLife -= penalty;
         Stats.GainedPenaltyTime += penalty;
         Stats.RoomFailed++;
     }
 
-    
+    internal void ForcedPenaltyTime(float penalty)
+    {
+        float remainingPenalty = penalty;
+        if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
+        {
+            remainingPenalty = Core.Instance.Rooms.ForcePenaltyTime(penalty);
+        }
+        TimerLife -= remainingPenalty;
+    }
 }

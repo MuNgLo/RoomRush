@@ -22,7 +22,8 @@ public class Core : MonoBehaviour
     {
         string NL = Environment.NewLine;
         string response = $"Current Run State : {Runs.State}{NL}" +
-            $"Current Room State : {Rooms.CurrentRoomState}{NL}{NL}" +
+            $"Current Room State : {Rooms.CurrentRoomState}{NL}" +
+            $"Current Room Time Multiplier : {Rooms.RoomTimeMultiplier}{NL}" +
             Runs.Stats.ToString();
 
         return response;

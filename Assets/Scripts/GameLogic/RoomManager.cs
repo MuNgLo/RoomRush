@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using RoomLogic;
 
 public class RoomManager : MonoBehaviour
@@ -22,6 +23,10 @@ public class RoomManager : MonoBehaviour
     private ROOMSTATE _currentRoomState = ROOMSTATE.PRE;
 
     private float _currentRoomTime = 5.0f;
+    private float _roomTimeMultiplier = 1.0f;
+
+    private float _tsLastLavaHit = 0.0f;
+
     public float RoomTimer { get => _currentRoomTime; private set { } }
 
 
@@ -33,10 +38,14 @@ public class RoomManager : MonoBehaviour
     public RoomDriver CurrentRoom { get => _currentRoom; private set => _currentRoom = value; }
     public ROOMSTATE CurrentRoomState { get => _currentRoomState; private set => _currentRoomState = value; }
     public float CurrentRoomTime { get => _currentRoomTime; private set => _currentRoomTime = value; }
+    public float RoomTimeMultiplier { get => _roomTimeMultiplier; set => _roomTimeMultiplier = Mathf.Clamp01(value); }
 
     [HideInInspector]
-    public RoomActivatedEvent OnRoomActivated = new RoomActivatedEvent();
-
+    public RoomActivatedEvent OnRoomActivated = new RoomActivatedEvent(); // Raised when room goes from pre to active
+    [HideInInspector]
+    public RoomClearedEvent OnRoomCleared = new RoomClearedEvent();
+    [HideInInspector]
+    public RoomFailedEvent OnRoomFailed = new RoomFailedEvent();
 
 
 
@@ -49,10 +58,21 @@ public class RoomManager : MonoBehaviour
     internal float RunRoomTime(float deltaTime)
     {
         bool hasTimedOut = _currentRoomTime <= 0.0f; // Did we timeout last update?
+        float extraPenaltyTimeLoss = 0.0f;
+        deltaTime = deltaTime * RoomTimeMultiplier; // Apply time dilation
+        CurrentRoom.RoomUpdate(deltaTime);
+
+        //Run lava hits
+        if (Core.Instance.Player.IsInLava)
+        {
+            Debug.Log($"LAVA BURNS!! {Core.Instance.Settings.Room.LavaDPS * deltaTime}");
+            extraPenaltyTimeLoss += Core.Instance.Settings.Room.LavaDPS * deltaTime;
+        }
+
+
         if (!hasTimedOut)
         {
-            _currentRoomTime -= deltaTime;
-            CurrentRoom.RoomUpdate(deltaTime);
+            _currentRoomTime -= deltaTime + extraPenaltyTimeLoss;
             if (_currentRoomTime <= 0.0f)
             {
                 CurrentRoomState = ParTimeOut();
@@ -62,8 +82,23 @@ public class RoomManager : MonoBehaviour
             }
             return 0.0f;
         }
-        return deltaTime;
+        return deltaTime + extraPenaltyTimeLoss;
     }
+
+    private void Update()
+    {
+        if (_currentRoomState == ROOMSTATE.POST)
+        {
+            //Run lava hits
+            if (Core.Instance.Player.IsInLava)
+            {
+                Debug.Log($"LAVA BURNS!! {Core.Instance.Settings.Room.LavaDPS * Time.deltaTime}");
+                Core.Instance.Runs.ForcedPenaltyTime( Core.Instance.Settings.Room.LavaDPS * Time.deltaTime);
+            }
+        }
+    }
+
+
 
     private ROOMSTATE ParTimeOut()
     {
@@ -89,6 +124,25 @@ public class RoomManager : MonoBehaviour
 
         return CurrentRoomState;
     }
+
+    internal float ForcePenaltyTime(float penalty)
+    {
+        bool hasTimedOut = _currentRoomTime <= 0.0f;
+        if (!hasTimedOut)
+        {
+            _currentRoomTime -= penalty;
+            if (_currentRoomTime <= 0.0f)
+            {
+                CurrentRoomState = ParTimeOut();
+                float remainder = _currentRoomTime;
+                _currentRoomTime = 0.0f;
+                return remainder;
+            }
+            return 0.0f;
+        }
+        return penalty;
+    }
+
     /// <summary>
     /// This flips the room over to active from pre state.
     /// Room time will tic 
@@ -145,6 +199,7 @@ public class RoomManager : MonoBehaviour
         CurrentRoom.OnRoomClear.AddListener(OnRoomClearEvent);
         CurrentRoom.OnRoomFail.AddListener(OnRoomFailEvent);
         CurrentRoomTime = CurrentRoom.GetComponent<RoomDefinition>().Par_Time;
+        _tsLastLavaHit = CurrentRoomTime + 100.0f;
         CurrentRoomState = ROOMSTATE.PRE;
         return room.GetComponent<RoomDriver>();
     }
@@ -214,6 +269,8 @@ public class RoomManager : MonoBehaviour
         CurrentRoom.OnRoomClear.AddListener(OnRoomClearEvent);
         CurrentRoom.OnRoomFail.AddListener(OnRoomFailEvent);
         CurrentRoomTime = CurrentRoom.GetComponent<RoomDefinition>().Par_Time;
+        _tsLastLavaHit = CurrentRoomTime + 100.0f;
+
         return room.GetComponent<RoomDriver>();
     }
 
@@ -247,6 +304,7 @@ public class RoomManager : MonoBehaviour
     {
         Core.Instance.Runs.RoomCleared(_currentRoomTime);
         OpenExit();
+        OnRoomCleared?.Invoke();
     }
     /// <summary>
     /// Listens to the room driver fail event
@@ -257,6 +315,7 @@ public class RoomManager : MonoBehaviour
     private void OnRoomFailEvent(float penalty)
     {
         Core.Instance.Runs.RoomFail(penalty);
+        OnRoomFailed?.Invoke();
     }
 
     /// <summary>
