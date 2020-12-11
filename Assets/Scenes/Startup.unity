@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.91796875, g: 0.91796875, b: 0.91796875, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -585,16 +585,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debug: 0
-  _prefabStartRoom: {fileID: 4096268652319772613, guid: 629fc9ade36ce7646895c01be2be20fd,
+  _prefabStartRoom: {fileID: 6385307389999588572, guid: ec7251afeafaadb4dab36afbb9e52132,
     type: 3}
   _prefabCorridor: {fileID: 7923206369661353559, guid: f5880a7657aef354d8142b96d951fbd0,
     type: 3}
   _currentRoom: {fileID: 0}
   _roomPile:
     _pile:
-    - {fileID: 9127111413336529103, guid: 3247821ac79af13468275a81a4301264, type: 3}
-    - {fileID: 38979171191686988, guid: 002ab2a86d8b3c148af203bd479c01e1, type: 3}
+    - {fileID: 4096268652319772613, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
   OnRoomActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRoomCleared:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRoomFailed:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &546771768
@@ -912,6 +917,8 @@ MonoBehaviour:
   _playerView: {fileID: 100901152312226723}
   _viewModelsCamera: {fileID: 100901152134356176}
   _weapon: {fileID: 968958189}
+  _isInLava: 0
+  _tsLastLavaHit: 0
   _prefabPlayerAvatar: {fileID: 8110111412726472520, guid: 7ef8a8ac0f144cd4b9be9e82b513f6ae,
     type: 3}
 --- !u!114 &832204505
@@ -1695,10 +1702,166 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce822b0607672a499c042b28523e772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debug: 1
+  _debug: 0
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1450035773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450035774}
+  - component: {fileID: 1450035776}
+  - component: {fileID: 1450035775}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1450035774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450035773}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1454499850}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1450035775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450035773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf6c7bd29bc0dc4eac1d4df15b776ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicT1:
+    Clip: {fileID: 8300000, guid: 2eec37472c68eab48bf7f69f0855bb12, type: 3}
+    MaxVolume: 0.6
+    FadeInTime: 3
+    FadeOutTime: 3
+  _musicT2:
+    Clip: {fileID: 8300000, guid: 36cd30b6511fb8d4ca96d75c5d215405, type: 3}
+    MaxVolume: 1
+    FadeInTime: 3
+    FadeOutTime: 3
+  _musicT3:
+    Clip: {fileID: 8300000, guid: aa3655d2246d15a4593242a035dc4a4a, type: 3}
+    MaxVolume: 1
+    FadeInTime: 3
+    FadeOutTime: 3
+--- !u!82 &1450035776
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450035773}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -968501390987554569, guid: 40c52b84490f3854c9d45e4a9d29dd78,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1454499849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,6 +1893,7 @@ Transform:
   - {fileID: 1404375921}
   - {fileID: 467429417}
   - {fileID: 832204503}
+  - {fileID: 1450035774}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1751,9 +1915,17 @@ MonoBehaviour:
       StartSeed: 1337
     Weapon:
       MagSize: 4
-      FireRate: 60
+      FireRate: 80
       EjectionForce: 22
-      ReloadSpeed: 0.8
+      ReloadSpeed: 0.6
+    Room:
+      LavaCoolDown: 0.2
+      LavaDPS: 20
+    Enemies:
+      StunTime: 5
+      RagDrag: 2
+      RagPushModifier: 0.02
+      RagMaxSpeed: 12
 --- !u!1 &1523381077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2526,6 +2698,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9fc4b177c4bc5b4aa6309282509feb6, type: 3}
+--- !u!1 &2116837134
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116837136}
+  - component: {fileID: 2116837135}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2116837135
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116837134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 11400000, guid: f813d24fc32e681439469b35fde377a4, type: 2}
+  m_StaticLightingSkyUniqueID: 0
+--- !u!4 &2116837136
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116837134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &100901152134356176
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,4 +48,14 @@ namespace RoomLogic
     {
 
     }
+    [System.Serializable]
+    public class RoomClearedEvent : UnityEngine.Events.UnityEvent
+    {
+
+    }
+    [System.Serializable]
+    public class RoomFailedEvent : UnityEngine.Events.UnityEvent
+    {
+
+    }
 }

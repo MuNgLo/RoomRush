@@ -28,6 +28,7 @@ namespace RoomLogic.RoomObjects
 
         public override void RoomUpdate(float roomDeltaTime)
         {
+            if(Core.Instance.Rooms.CurrentRoomState != ROOMSTATE.ACTIVE) { return; }
             BoxCollider box = GetComponent<BoxCollider>();
             if(Time.time < _tsLastTriggered + _triggerCooldown) { return; }
             RaycastHit[] hits = Physics.BoxCastAll(

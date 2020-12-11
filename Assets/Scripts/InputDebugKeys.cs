@@ -21,5 +21,14 @@ public class InputDebugKeys : MonoBehaviour
             // Triggers the clear code in the room driver as if the conditionscript raised clear event
             _core.Rooms.CurrentRoom.ForceRoomClear();
         }
+        // Manipulate roomtime
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            Core.Instance.Rooms.RoomTimeMultiplier += 0.05f;
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            Core.Instance.Rooms.RoomTimeMultiplier -= 0.05f;
+        }
     }
 }

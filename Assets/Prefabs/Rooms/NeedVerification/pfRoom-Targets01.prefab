@@ -7366,6 +7366,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3252455629330859170}
     m_Modifications:
+    - target: {fileID: 1444126109146540085, guid: 670bd2e5cd9600d429fbe9b3507ee955,
+        type: 3}
+      propertyPath: m_ShadowNearPlane
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 7023458376198849944, guid: 670bd2e5cd9600d429fbe9b3507ee955,
         type: 3}
       propertyPath: m_IsActive
@@ -7452,6 +7457,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3252455629330859170}
     m_Modifications:
+    - target: {fileID: 1444126109146540085, guid: 670bd2e5cd9600d429fbe9b3507ee955,
+        type: 3}
+      propertyPath: m_ShadowNearPlane
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 8102480603770900183, guid: 670bd2e5cd9600d429fbe9b3507ee955,
         type: 3}
       propertyPath: m_Name

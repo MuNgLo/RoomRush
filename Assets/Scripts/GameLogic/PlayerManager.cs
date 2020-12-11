@@ -15,13 +15,29 @@ public class PlayerManager : MonoBehaviour
     private InputHandling _playerInput = null;
     private GameObject _playerAvatar = null;
 
-    private PLAYERSTATE _playerState = PLAYERSTATE.DEAD;
+    [SerializeField]
+    private bool _isInLava = false;
+    [SerializeField]
+    private float _tsLastLavaHit = 0.0f;
+    public bool IsInLava { get => _isInLava; set { TsLastLavaHit = Time.time; _isInLava = value; } }
+    public float TsLastLavaHit { get => _tsLastLavaHit; set => _tsLastLavaHit = value; }
 
+    private PLAYERSTATE _playerState = PLAYERSTATE.DEAD;
     public PLAYERSTATE State { get => _playerState; set => ChangePlayerState(value); }
     public InputHandling PlayerInput { get => _playerInput; private set => _playerInput = value; }
     public Transform Avatar { get => _playerAvatar.transform; private set { } }
     public wShotgun Weapon { get => _weapon; private set { } }
+
+
     public GameObject _prefabPlayerAvatar = null;
+
+    private void Update()
+    {
+        if(_isInLava && Time.time > TsLastLavaHit + Core.Instance.Settings.Room.LavaCoolDown)
+        {
+            _isInLava = false;
+        }
+    }
 
     private void Awake()
     {

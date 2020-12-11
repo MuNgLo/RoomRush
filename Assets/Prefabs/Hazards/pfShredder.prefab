@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9217789133141817338}
   - component: {fileID: 3875320105169098230}
   - component: {fileID: 2553650532582474849}
+  - component: {fileID: 3987564448648633832}
   m_Layer: 0
   m_Name: ShredderRoller.R
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +82,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3987564448648633832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698133330893656010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d14861dd1fa264698e3c7d90c048c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bRotatesOnRoomTime: 1
+  _aroundAxis: 2
+  _RotationSpeed: 240
 --- !u!1 &3220144163592310509
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +109,7 @@ GameObject:
   - component: {fileID: 2301668526320439540}
   - component: {fileID: 8491062480297643189}
   - component: {fileID: 1911668136877701328}
+  - component: {fileID: 314663832944527995}
   m_Layer: 0
   m_Name: ShredderRoller.L
   m_TagString: Untagged
@@ -105,7 +124,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3220144163592310509}
-  m_LocalRotation: {x: 0.000000059604645, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.00000005961793, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -1.3999996, y: -0.57852226, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -135,6 +154,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -160,6 +180,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &314663832944527995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220144163592310509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d14861dd1fa264698e3c7d90c048c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bRotatesOnRoomTime: 1
+  _aroundAxis: 2
+  _RotationSpeed: -240
 --- !u!1 &3879597754863903383
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +259,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -247,6 +284,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &737931104049888769
 BoxCollider:
   m_ObjectHideFlags: 0
