@@ -72,9 +72,10 @@ MonoBehaviour:
   _hittable:
     serializedVersion: 2
     m_Bits: 17409
+  damage: 5
   _TTL: 1
   _speed: 40
-  _maxBounce: 1
+  _maxBounce: 2
   _prefabVFXBounce: {fileID: 7411853586407076836, guid: e5b98db0fb5887f44b73b3348e9f58cf,
     type: 3}
 --- !u!2083052967 &8192943441265138024

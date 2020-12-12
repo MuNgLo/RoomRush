@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &1238640845793574113
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &1253888325479154154
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +294,7 @@ GameObject:
   - component: {fileID: 8221590287818853568}
   - component: {fileID: 2063918038}
   - component: {fileID: 2063918042}
+  - component: {fileID: 6554777283670099220}
   m_Layer: 0
   m_Name: pfRavonousMKII
   m_TagString: Untagged
@@ -325,7 +328,7 @@ Animator:
   m_GameObject: {fileID: 1362315430766712825}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4b225a522e711104999a15f5654bb9cc, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44ac003859d936c4784f9f2593438351, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -341,7 +344,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1362315430766712825}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.25
   m_Speed: 3.5
@@ -353,7 +356,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.98
-  m_BaseOffset: 0
+  m_BaseOffset: 0.2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &8221590287818853568
@@ -368,10 +371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac32defd2b0e7524d8b07e33acbfbd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _head: {fileID: 0}
-  _moveSpeed: 5
-  _navAgent: {fileID: 0}
 --- !u!114 &2063918038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +408,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
+  _clearOnDead: 1
+--- !u!114 &6554777283670099220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362315430766712825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d244ae25111c87f40b28934e16164920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _updateRate: 1
 --- !u!1 &1424061492694172155
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &3771431451643022728
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,6 +898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &4341070321761707188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &4981413744752811600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5240113997948966513}
   m_LocalRotation: {x: -0.064218245, y: 0, z: -0, w: 0.9979359}
-  m_LocalPosition: {x: -0, y: 0.004396637, z: 0.00025699538}
+  m_LocalPosition: {x: 0, y: 0.004396637, z: 0.00025699538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4850559506885547482}
@@ -1148,6 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &5255851919575917432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &6665940748498659159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &6942931972017066532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 3
 --- !u!1 &8372365655157052488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,6 +1880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &8413047360925240983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,6 +2036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eState: {fileID: 2063918042}
+  _damageMultiplier: 1
 --- !u!1 &9219799067173425808
 GameObject:
   m_ObjectHideFlags: 0

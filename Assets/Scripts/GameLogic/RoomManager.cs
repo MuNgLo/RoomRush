@@ -20,6 +20,7 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField]
     private RoomDriver _currentRoom = null;
+
     private ROOMSTATE _currentRoomState = ROOMSTATE.PRE;
 
     private float _currentRoomTime = 5.0f;
@@ -65,7 +66,6 @@ public class RoomManager : MonoBehaviour
         //Run lava hits
         if (Core.Instance.Player.IsInLava)
         {
-            Debug.Log($"LAVA BURNS!! {Core.Instance.Settings.Room.LavaDPS * deltaTime}");
             extraPenaltyTimeLoss += Core.Instance.Settings.Room.LavaDPS * deltaTime;
         }
 

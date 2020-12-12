@@ -12,6 +12,9 @@ namespace RoomLogic
         public Transform SpawnPoint;
         public Transform Connectionpoint;
 
+        private RoomDefinition _roomDefinition = null;
+        private ConditionBehaviour _condition = null;
+
         #region Event connections
         public EVENTCONNECTION WhenCleared = EVENTCONNECTION.CLEAR;
         public EVENTCONNECTION WhenParTimeOut = EVENTCONNECTION.PARTIMEOUT;
@@ -31,8 +34,14 @@ namespace RoomLogic
 
         private ConditionBehaviour _conditionScript = null;
 
+        public RoomDefinition Definition { get => _roomDefinition; private set => _roomDefinition = value; }
+        public ConditionBehaviour Condition { get => _condition; private set => _condition = value; }
+
         private void Start()
         {
+            _roomDefinition = GetComponent<RoomDefinition>();
+            Condition = GetComponent<ConditionBehaviour>();
+
             if (GetComponent<ConditionBehaviour>())
             {
                 _conditionScript = GetComponent<ConditionBehaviour>();
@@ -59,7 +68,7 @@ namespace RoomLogic
             if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
             {
                 if (_debug) { Debug.Log("RoomDriver()::OnConditionFail Fired!"); }
-                OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
+                OnRoomFail?.Invoke(_roomDefinition.Penatly_Time);
             }
         }
         /// <summary>
