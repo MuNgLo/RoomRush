@@ -11,6 +11,8 @@ namespace RoomLogic
     public class RoomDefinition : MonoBehaviour
     {
         public string Author;
+        public string Objective;
+        public int ObjectiveCount;
         public int Tier_Lowest = -1;
         public int Tier_Highest = -1;
         public float Par_Time = 30.0f;

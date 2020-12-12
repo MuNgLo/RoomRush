@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShotgunPellet : MonoBehaviour
 {
     public LayerMask _hittable;
+    [Range(1,100)]
+    public int _damage = 5;
     public float _TTL = 1.0f;
     public float _speed = 10.0f;
     public int _maxBounce = 5;
@@ -45,7 +47,7 @@ public class ShotgunPellet : MonoBehaviour
 
             if (hitInfo.collider.GetComponent<Enemies.Hitbox>())
             {
-                hitInfo.collider.GetComponent<Enemies.Hitbox>().RecieveHit(transform.forward * _knockBackForce);
+                hitInfo.collider.GetComponent<Enemies.Hitbox>().RecieveHit(transform.forward * _knockBackForce, _damage);
                 DeSpawn();
                 return;
             }

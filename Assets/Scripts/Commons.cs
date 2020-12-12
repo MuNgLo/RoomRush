@@ -11,6 +11,7 @@ public class RoomSettings
 {
     public float LavaCoolDown;
     public float LavaDPS;
+    public float GasBottleFuse = 1.5f;
 }
 
 [System.Serializable]
@@ -28,6 +29,10 @@ public class EnemySettings
     public float RagDrag = 3.0f;
     public float RagPushModifier = 0.02f;
     public float RagMaxSpeed = 7.0f;
+    public float ReactDistance = 10.0f;
+    public float MeleeReach = 1.3f;
+    public float StartLife = 100.0f;
+    public float RavMoveSpeed = 5.0f;
 }
 [System.Serializable]
 public class WeaponSettings

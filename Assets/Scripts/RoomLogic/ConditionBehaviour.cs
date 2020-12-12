@@ -16,7 +16,9 @@ namespace RoomLogic
         public int _failsNeeded = 1;
         private int _fails = 0;
 
-        
+        public int Clears { get => _clears; private set => _clears = value; }
+
+
 
         /// <summary>
         /// This is the method called to raise the clear event
@@ -24,10 +26,10 @@ namespace RoomLogic
         public void RoomClear()
         {
             if (_debug) { Debug.Log($"ConditionBehaviour::RoomClear()"); }
-            _clears++;
-            if (_clears >= _clearsNeeded)
+            Clears++;
+            if (Clears >= _clearsNeeded)
             {
-                _clears = 0;
+                Clears = 0;
                 OnConditionClear?.Invoke();
             }
         }

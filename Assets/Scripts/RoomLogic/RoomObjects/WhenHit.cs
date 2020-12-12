@@ -1,5 +1,6 @@
 ﻿using RoomLogic.Conditionscripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RoomLogic.RoomObjects
 {
@@ -9,11 +10,14 @@ namespace RoomLogic.RoomObjects
         public bool _FireFailWhenHit = false;
         private ConditionBehaviour _conditionScript;
         private bool _hasBeenHit = false;
+        public UnityEvent OnHit;
+
 
         public void TakeHit()
         {
             if (_hasBeenHit) { return; }
             _hasBeenHit = true;
+            OnHit?.Invoke();
             if (_FireClearWhenHit) { _conditionScript.RoomClear(); }
             if (_FireFailWhenHit) { _conditionScript.RoomFail(); }
         }

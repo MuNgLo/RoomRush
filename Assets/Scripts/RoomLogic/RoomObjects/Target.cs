@@ -91,8 +91,8 @@ namespace RoomLogic.RoomObjects
         {
             if (Time.time < _lasthit + 0.1f) { return; }
 
-            if (_FireClearWhenHit) { Debug.Log("Target Clear"); _conditionScript.RoomClear(); }
-            if (_FireFailWhenHit) { Debug.Log("Target Fail"); _conditionScript.RoomFail(); }
+            if (_FireClearWhenHit) { _conditionScript.RoomClear(); }
+            if (_FireFailWhenHit) { _conditionScript.RoomFail(); }
 
             switch (_whenHit)
             {

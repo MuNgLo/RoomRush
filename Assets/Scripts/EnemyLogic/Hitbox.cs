@@ -6,10 +6,11 @@ namespace Enemies {
     public class Hitbox : MonoBehaviour
     {
         public EnemyState _eState = null;
+        public float _damageMultiplier = 1.0f;
 
-        internal void RecieveHit(Vector3 physicsForce)
+        internal void RecieveHit(Vector3 physicsForce, int damage)
         {
-            _eState.TakeHit(physicsForce);
+            _eState.TakeHit(physicsForce, damage * _damageMultiplier);
         }
 
     }// EOF CLASS

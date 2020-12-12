@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7023458376198849944}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.213, y: 0.104, z: 0.063}
+  m_LocalRotation: {x: -0.34383163, y: 0.00000023841855, z: 0.0000006407499, w: 0.9390313}
+  m_LocalPosition: {x: -0.213, y: 0.029, z: 0.032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8879439863459452013}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -40.221, y: 0, z: 0}
 --- !u!108 &1936297691916068219
 Light:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 883.0547
+  m_Intensity: 3047.336
   m_Range: 5.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -83,14 +83,14 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 0.5, y: 0.5}
-  m_BounceIntensity: 0
+  m_AreaSize: {x: 0.28153297, y: 0.05667313}
+  m_BounceIntensity: 1
   m_ColorTemperature: 5743
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 5.5}
+  m_UseBoundingSphereOverride: 1
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 4.6
   m_ShadowAngle: 0
@@ -111,23 +111,23 @@ MonoBehaviour:
   m_ObsoleteUseShadowQualitySettings: 0
   m_ObsoleteCustomShadowResolution: 512
   m_ObsoleteContactShadows: 0
-  m_PointlightHDType: 0
+  m_PointlightHDType: 1
   m_SpotLightShape: 0
   m_AreaLightShape: 0
-  m_Intensity: 11096.793
+  m_Intensity: 14.573333
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
-  m_LightUnit: 0
+  m_LightUnit: 4
   m_FadeDistance: 10000
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 0.5
-  m_ShapeHeight: 0.5
+  m_ShapeWidth: 0.28153297
+  m_ShapeHeight: 0.05667313
   m_AspectRatio: 1
   m_ShapeRadius: 4.6
   m_SoftnessScale: 1
@@ -229,37 +229,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -13.73
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000023841855
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.49999997
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.50000006
+      value: -0.7071069
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.50000006
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.50000006
+      value: -0.00000014807095
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
@@ -274,7 +274,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 46f8ab87abd27f2409143874dd0e4767,
         type: 3}
