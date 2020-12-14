@@ -11606,6 +11606,7 @@ GameObject:
   - component: {fileID: 958804132369077659}
   - component: {fileID: 8808659997902278705}
   - component: {fileID: -2998648730325726795}
+  - component: {fileID: 429579357668474690}
   m_Layer: 0
   m_Name: pfRoom-TargetAlleyTemplete
   m_TagString: Untagged
@@ -11733,6 +11734,25 @@ MonoBehaviour:
   _numberToHit: 4
   _StateToCount: 1
   _targets: []
+--- !u!114 &429579357668474690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953226229824865930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03918704c9a1edf4cb3611bc55c3afe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrambledObjects:
+  - {fileID: 5358059861063511315}
+  - {fileID: 5358059861497370848}
+  - {fileID: 5358059860977174884}
+  - {fileID: 5358059861973118852}
+  - {fileID: 5358059860299033820}
+  - {fileID: 5358059862298736972}
 --- !u!1 &6852069386182623300
 GameObject:
   m_ObjectHideFlags: 0
