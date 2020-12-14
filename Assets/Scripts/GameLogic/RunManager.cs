@@ -21,6 +21,7 @@ public class RunManager : MonoBehaviour
     public RUNSTATE State { get => _state; private set { _state = value; OnStateChange?.Invoke(_state); } }
 
     public RunStats Stats { get => _stats; private set => _stats = value; }
+    public float CurrentTotalTime { get { return _timerLife + Core.Instance.Rooms.CurrentRoomTime; } private set { } }
 
     private void Awake()
     {
@@ -39,7 +40,7 @@ public class RunManager : MonoBehaviour
             float frameTimerLifeLoss = 0.0f;
             if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
             {
-                frameTimerLifeLoss -= Core.Instance.Rooms.RunRoomTime(Time.deltaTime);
+                frameTimerLifeLoss += Core.Instance.Rooms.RunRoomTime(Time.deltaTime);
             }
             TimerLife -= frameTimerLifeLoss;
             // Check if player has time left
@@ -73,6 +74,7 @@ public class RunManager : MonoBehaviour
         Core.Instance.Player.State = PLAYERSTATE.ALIVE;
         Core.Instance.Player.SpawnPlayer(startRoom.SpawnPoint);
         TimerLife = Core.Instance.Settings.Runs.StartTime; // how much time the player starts with
+        Core.Instance.Rooms.ChangeState(ROOMSTATE.PRE);
         Core.Instance.Rooms.ActivateRoom();
     }
 
@@ -111,13 +113,14 @@ public class RunManager : MonoBehaviour
         Stats.RoomFailed++;
     }
 
-    internal void ForcedPenaltyTime(float penalty)
+    internal void ForcedPenaltyTime(float penalty, bool overrideRoomState=false)
     {
         float remainingPenalty = penalty;
-        if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
+        if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE || overrideRoomState)
         {
             remainingPenalty = Core.Instance.Rooms.ForcePenaltyTime(penalty);
         }
+        Stats.GainedPenaltyTime += remainingPenalty;
         TimerLife -= remainingPenalty;
     }
 }

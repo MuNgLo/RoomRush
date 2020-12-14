@@ -86,7 +86,9 @@ namespace RoomLogic.RoomObjects
             OnTargetStateChange?.Invoke(State);
         }
 
-
+        /// <summary>
+        /// Call this when taget gets hit
+        /// </summary>
         internal void RegisterHit()
         {
             if (Time.time < _lasthit + 0.1f) { return; }

@@ -8,4 +8,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Startup.unity
     guid: 0b71ef45544b5e343a935ff01364a019
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfCorridor.unity
+    guid: 7cecbace475d36a49a7c411c28b88074
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-Start.unity
+    guid: 26c07cc0a080624499c24080ede20b74
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-Rush01.unity
+    guid: 650f91978baa5034295051165e158fde
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-Enemies01.unity
+    guid: 5415939ff7f099a488583015065637d5
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-TargetAlleyTemplete.unity
+    guid: 5c8ec2e9cff127b4f9fd077d7cec212a
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-BarrelsTemplete.unity
+    guid: 0490d02ef225993408b1d58426fb7f2f
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pmRoom-SmallTemplete.unity
+    guid: 3ad4e5b60fc9f6844bab78cbaf73bec9
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-GlassMazeTemplete.unity
+    guid: 4a28ac6075438784686ac9bca0c4dc8f
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-Targets01.unity
+    guid: c57f2b1e5c405604089c023aa99741cc
+  - enabled: 1
+    path: Assets/Scenes/BakeScenes/pfRoom-Climb01.unity
+    guid: bc2780489ed3c2d43b4f78ea48aebe27
   m_configObjects: {}

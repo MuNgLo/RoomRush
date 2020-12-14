@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 91f33eaf50544ec4980d6a1970bf88a7,
+    type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 27fa24a60c456194ba3c60b7dbcce121,
     type: 2}
 --- !u!196 &4
@@ -169,59 +170,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2832945144084252524
+--- !u!1001 &4745028253358489501
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 103773152, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 103773153, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 518484147, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 518484148, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1078176405, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1078176406, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1682101686, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1682101687, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 208748687346836815, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 123609033735004159, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 999245812553882130, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 1384343003941739571, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 3697499181272661141, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 2168950524904830487, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802561930765224467, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2977597009997761616, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062569928391686213, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082059647624203528, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4096268652319772613, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
@@ -283,30 +272,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4313664441279560864, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 4339698115012311982, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4391131664583511893, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 5097765037640233964, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5118375654193843411, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 5445243274859403720, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6993432923897113139, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 6417746613403851268, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_ShadowNearPlane
-      value: 0.01
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 7522523168821004705, guid: 629fc9ade36ce7646895c01be2be20fd,
+    - target: {fileID: 6917859805020424435, guid: 629fc9ade36ce7646895c01be2be20fd,
         type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250508673638170197, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211684983979657643, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8225578804685225406, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098393239125331944, guid: 629fc9ade36ce7646895c01be2be20fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}

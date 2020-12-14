@@ -11,13 +11,15 @@ namespace Enemies
     {
         public int _updateRate = 10;
 
-
+        private float _tsLastMelee = 100.0f;
         private int _nextUpdateIn = 0;
         private GameObject _target = null;
         private EnemyState _eState = null;
         private ENEMYSTATE State { get => _eState.State; set { } }
 
         public GameObject Target { get => _target; private set => _target = value; }
+        public Transform _meleePoint1;
+        public Transform _meleePoint2;
 
         private NavMeshAgent _navAgent = null;
         private ConditionBehaviour _condition = null;
@@ -30,6 +32,7 @@ namespace Enemies
             _eState = GetComponent<EnemyState>();
             _navAgent = GetComponent<NavMeshAgent>();
             _room.OnRoomUpdate.AddListener(RoomUpdate);
+            _tsLastMelee = Core.Instance.Runs.CurrentTotalTime + 10.0f;
             Core.Instance.Rooms.OnRoomActivated.AddListener(OnRooMActivated);
 
         }
@@ -39,17 +42,17 @@ namespace Enemies
         }
         public override void RoomUpdate(float roomDeltaTime)
         {
-            if(State == ENEMYSTATE.DEAD || State == ENEMYSTATE.INACTIVE)
+            if (State == ENEMYSTATE.DEAD || State == ENEMYSTATE.INACTIVE)
             {
                 // We ded Don't do shit
                 return;
             }
             _nextUpdateIn--;
-            if(_nextUpdateIn < 1)
+            if (_nextUpdateIn < 1)
             {
                 _nextUpdateIn = _updateRate;
                 float targetDistance = Vector3.Distance(Target.transform.position, transform.position);
-                
+
                 if (targetDistance < Core.Instance.Settings.Enemies.ReactDistance)
                 {
                     if (targetDistance < Core.Instance.Settings.Enemies.ReactDistance)
@@ -66,7 +69,10 @@ namespace Enemies
                         }
                         if (targetDistance < Core.Instance.Settings.Enemies.MeleeReach)
                         {
-                            DoMeleeAttack();
+                            if (Core.Instance.Runs.CurrentTotalTime < _tsLastMelee - Core.Instance.Settings.Enemies.RavMeleeCooldown)
+                            {
+                                DoMeleeAttack();
+                            }
                             return;
                         }
                         return;
@@ -84,7 +90,18 @@ namespace Enemies
 
         private void DoMeleeAttack()
         {
-            //Debug.Log("MELEE WOP WOP!");
+            RaycastHit[] hits = Physics.CapsuleCastAll(_meleePoint1.position, _meleePoint2.position, Core.Instance.Settings.Enemies.RavMeleeRadius, transform.forward, 0.1f);
+            Debug.Log($"MeleeAttack! {hits.Length} colliders hit");
+            foreach (RaycastHit hit in hits)
+            {
+                if(hit.collider.name == name) { return; }
+                if (hit.collider.GetComponent<CharacterController>())
+                {
+                    Debug.Log($"MeleeAttack! Hit Player!");
+                    _tsLastMelee = Core.Instance.Runs.CurrentTotalTime - Core.Instance.Settings.Enemies.RavMeleePenalty;
+                    Core.Instance.Runs.ForcedPenaltyTime(Core.Instance.Settings.Enemies.RavMeleePenalty, true);
+                }
+            }
         }
     }// EOF CLASS
 }

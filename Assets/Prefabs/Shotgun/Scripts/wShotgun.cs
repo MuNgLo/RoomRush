@@ -6,7 +6,6 @@ using UnityEngine;
 public class wShotgun : MonoBehaviour
 {
     private int _fireRate = 0;
-    private int _magSize = 0;
     private int _magCurrent = 0;
     private float _reloadSpeed = 1.0f;
     private float _ejectionForce = 5.0f;
@@ -26,7 +25,7 @@ public class wShotgun : MonoBehaviour
     private AudioSource _audio = null;
 
     public object AmmoCount { get => _magCurrent; internal set { } }
-    public object MagSize { get => _magSize; internal set { } }
+    public object MagSize { get => Core.Instance.Settings.Weapon.MagSize; internal set { } }
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +34,6 @@ public class wShotgun : MonoBehaviour
         _audio = GetComponent<AudioSource>();
         _flash.SetActive(false);
         _fireRate = Core.Instance.Settings.Weapon.FireRate;
-        _magSize = Core.Instance.Settings.Weapon.MagSize;
         _reloadSpeed = Core.Instance.Settings.Weapon.ReloadSpeed;
         _ejectionForce = Core.Instance.Settings.Weapon.EjectionForce;
     }
@@ -90,7 +88,7 @@ public class wShotgun : MonoBehaviour
     }
     internal void Reload()
     {
-        if(_magCurrent == _magSize) { return; }
+        if(_magCurrent == Core.Instance.Settings.Weapon.MagSize) { return; }
         _isReloading = true;
         StartCoroutine("ReloadCycle", _reloadSpeed);
     }
@@ -98,7 +96,7 @@ public class wShotgun : MonoBehaviour
     {
         _anims.SetTrigger("Reload");
         yield return new WaitForSeconds(speed);
-        _magCurrent = _magSize;
+        _magCurrent = Core.Instance.Settings.Weapon.MagSize;
         _anims.SetTrigger("ReloadPost");
     }
     /// <summary>

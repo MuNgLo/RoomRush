@@ -12,14 +12,16 @@ namespace RoomLogic.RoomObjects
         private bool _hasBeenHit = false;
         public UnityEvent OnHit;
 
-
         public void TakeHit()
         {
             if (_hasBeenHit) { return; }
             _hasBeenHit = true;
             OnHit?.Invoke();
-            if (_FireClearWhenHit) { _conditionScript.RoomClear(); }
-            if (_FireFailWhenHit) { _conditionScript.RoomFail(); }
+            if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
+            {
+                if (_FireClearWhenHit) { _conditionScript.RoomClear(); }
+                if (_FireFailWhenHit) { _conditionScript.RoomFail(); }
+            }
         }
 
         public override void RoomObjectInit(RoomDriver roomDriver, ConditionBehaviour conditionScript)
