@@ -6,7 +6,12 @@ using System.Linq;
 public class ObjectScrambler: MonoBehaviour {
 	public Transform[] scrambledObjects;
 
-	public void Start() {
+    private void Awake()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Start() {
 		scramble();
 	}
 
