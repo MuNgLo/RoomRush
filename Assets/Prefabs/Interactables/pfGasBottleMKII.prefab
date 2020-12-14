@@ -663,6 +663,7 @@ GameObject:
   - component: {fileID: 5471961258991778413}
   - component: {fileID: 5471961258991778412}
   - component: {fileID: 7944137926985049499}
+  - component: {fileID: 8864208935632779815}
   m_Layer: 0
   m_Name: pfGasBottleMKII
   m_TagString: Untagged
@@ -816,6 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundExplotion: {fileID: 8300000, guid: 1d0bd0ade294c544ca8f616f3623844e, type: 3}
+  _runInRoomTime: 1
   _canExplode: 1
   _pushForce: 10
   _pushPoint: {fileID: 5012988139147546139}
@@ -916,3 +918,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!208 &8864208935632779815
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471961258991778411}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.179, y: 0.22800002, z: 0.179}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.22800002, z: 0}
+  m_TimeToStationary: 0.5

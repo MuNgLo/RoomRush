@@ -200,7 +200,7 @@ public class RoomManager : MonoBehaviour
         CurrentRoom.OnRoomFail.AddListener(OnRoomFailEvent);
         CurrentRoomTime = CurrentRoom.GetComponent<RoomDefinition>().Par_Time;
         _tsLastLavaHit = CurrentRoomTime + 100.0f;
-        CurrentRoomState = ROOMSTATE.PRE;
+        //CurrentRoomState = ROOMSTATE.PRE;
         return room.GetComponent<RoomDriver>();
     }
     /// <summary>

@@ -12,15 +12,16 @@ public class RoomSettings
     public float LavaCoolDown;
     public float LavaDPS;
     public float GasBottleFuse = 1.5f;
+    public float GasBottleExplosionForce = 100.0f;
+    public float GasBottleExplosionRadius = 2.0f;
+    public float GasBottlePenalty = 10.0f;
 }
 
 [System.Serializable]
 public class RunSettings
 {
-
     public float StartTime = 60.0f;
     public ulong StartSeed = 1337;
-
 }
 [System.Serializable]
 public class EnemySettings
@@ -33,6 +34,9 @@ public class EnemySettings
     public float MeleeReach = 1.3f;
     public float StartLife = 100.0f;
     public float RavMoveSpeed = 5.0f;
+    public float RavMeleeCooldown = 1.0f;
+    public float RavMeleePenalty = 5.0f;
+    public float RavMeleeRadius = 0.3f;
 }
 [System.Serializable]
 public class WeaponSettings
@@ -57,7 +61,7 @@ public class Cmd
 public class RunStats
 {
     internal float GainedClearTime = 0.0f;
-    internal int RoomCleared = 0;
+    internal int RoomCleared = -1;
     internal int RoomFailed = 0;
     internal float GainedPenaltyTime;
     override public string ToString()

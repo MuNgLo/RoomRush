@@ -71,7 +71,6 @@ namespace Enemies
             }
             if (skipHip)
             {
-                Debug.Log("Skipping Hip");
                 _hitBoxes[0].isKinematic = true;
             }
             _anims.enabled = false;

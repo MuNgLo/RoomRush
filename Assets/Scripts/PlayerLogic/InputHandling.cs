@@ -23,24 +23,11 @@ public class InputHandling : MonoBehaviour
     void Update()
         {
         #region Global Keys
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                if (Cursor.visible)
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
-                else
-                {
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                }
-            }
+        
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             Core.Instance.Runs.ResetRun();
         }
-
         #endregion
 
         if (Core.Instance.Player.State == PLAYERSTATE.DEAD) { return; }
