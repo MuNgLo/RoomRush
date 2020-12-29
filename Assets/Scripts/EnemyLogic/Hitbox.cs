@@ -5,12 +5,14 @@ using UnityEngine;
 namespace Enemies {
     public class Hitbox : MonoBehaviour
     {
-        public EnemyState _eState = null;
-        public float _damageMultiplier = 1.0f;
+        private EnemyState _eState = null;
+        public HITBOXLOCATION _hitboxLocation = HITBOXLOCATION.BODY;
+
+        public EnemyState EState { get => _eState; set => _eState = value; }
 
         internal void RecieveHit(Vector3 physicsForce, int damage)
         {
-            _eState.TakeHit(physicsForce, damage * _damageMultiplier);
+            EState.TakeHit(physicsForce, damage, _hitboxLocation);
         }
 
     }// EOF CLASS

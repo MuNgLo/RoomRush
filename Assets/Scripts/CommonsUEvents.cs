@@ -21,7 +21,7 @@ public class TargetEvent : UnityEngine.Events.UnityEvent<TARGETSTATE>
 
 }
 [System.Serializable]
-public class EnemyStateChange : UnityEngine.Events.UnityEvent<Enemies.ENEMYSTATE, Enemies.ENEMYSTATE>
+public class EnemyStateChange : UnityEngine.Events.UnityEvent<ENEMYSTATE, ENEMYSTATE>
 {
 
 }

@@ -6,10 +6,7 @@ using RoomLogic;
 using System;
 
 namespace Enemies {
-    public enum ENEMYSTATE { INACTIVE, IDLE, MOVING, STUNNED, DEAD }
-
-    [RequireComponent(typeof(NavMeshAgent), typeof(NavMeshIntegration), typeof(RagDollControls))]
-
+    [RequireComponent(typeof(NavMeshAgent), typeof(RagDollControls))]
     public class EnemyState : RoomObjectBehaviour
     {
         [SerializeField]
@@ -25,7 +22,6 @@ namespace Enemies {
 
         private ConditionBehaviour _conditionScrip;
         private NavMeshAgent _navAgent;
-        private NavMeshIntegration _navIntegration;
         private RagDollControls _ragControls;
 
         [HideInInspector]
@@ -34,16 +30,19 @@ namespace Enemies {
         private void Awake()
         {
             _navAgent = GetComponent<NavMeshAgent>();
-            _navIntegration = GetComponent<NavMeshIntegration>();
             _ragControls = GetComponent<RagDollControls>();
+            foreach(Hitbox hitbox in GetComponentsInChildren<Hitbox>())
+            {
+                hitbox.EState = this;
+            }
         }
 
-        internal void TakeHit(Vector3 force, float damage)
+        internal void TakeHit(Vector3 force, float damage, HITBOXLOCATION hbLoc)
         {
             if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE && State != ENEMYSTATE.DEAD)
             {
                 _ragControls.PushHip(force);
-                _life -= damage;
+                _life -= damage * Core.Instance.DamageMultiPlier(hbLoc);
                 if(_life <= 0.0f)
                 {
                     ChangeState(ENEMYSTATE.DEAD);
@@ -74,6 +73,7 @@ namespace Enemies {
             if(_state == newState) { return; }
             OnStateChange?.Invoke(newState, _state);
             _state = newState;
+
             switch (newState)
             {
                 case ENEMYSTATE.INACTIVE:
@@ -82,6 +82,15 @@ namespace Enemies {
                 case ENEMYSTATE.IDLE:
                     _ragControls.MakeAllKinematic();
                     _navAgent.isStopped = true;
+                    break;
+                case ENEMYSTATE.MELEE:
+                    _navAgent.isStopped = true;
+                    break;
+                case ENEMYSTATE.RUSHING:
+                    _navAgent.isStopped = false;
+                    break;
+                case ENEMYSTATE.STALKING:
+                    _navAgent.isStopped = false;
                     break;
                 case ENEMYSTATE.MOVING:
                     _ragControls.MakeAllKinematic();
@@ -119,13 +128,14 @@ namespace Enemies {
             _conditionScrip = conditionScript;
             _navAgent.isStopped = true;
             _navAgent.enabled = true;
-            _navIntegration.enabled = false;
             _ragControls.MakeAllKinematic();
             _state = ENEMYSTATE.INACTIVE;
             _lastLocation = transform.position;
 
             roomDriver.OnRoomUpdate.AddListener(RoomUpdate);
             Core.Instance.Rooms.OnRoomActivated.AddListener(OnRoomActivated);
+            Core.Instance.Rooms.OnRoomCleared.AddListener(GoInactive);
+            Core.Instance.Rooms.OnRoomFailed.AddListener(GoInactive);
 
             _life = Core.Instance.Settings.Enemies.StartLife;
             _moveSpeed = Core.Instance.Settings.Enemies.RavMoveSpeed;
@@ -134,6 +144,10 @@ namespace Enemies {
         private void OnRoomActivated(GameObject playerAvatar)
         {
             ChangeState(ENEMYSTATE.IDLE);
+        }
+        private void GoInactive()
+        {
+            ChangeState(ENEMYSTATE.INACTIVE);
         }
     }// EOF CLASS
 }

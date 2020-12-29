@@ -6,7 +6,15 @@ public class GameSettings
     public RoomSettings Room;
     public EnemySettings Enemies;
     public MusicSettings Music;
-
+    public LifeSettings Life;
+}
+[System.Serializable]
+public class LifeSettings
+{
+    public float DMGMP_Leg = 1.0f;
+    public float DMGMP_Arm = 1.0f;
+    public float DMGMP_Body = 1.0f;
+    public float DMGMP_Head = 3.0f;
 }
 [System.Serializable]
 public class RoomSettings
@@ -40,6 +48,7 @@ public class EnemySettings
     public float RavMeleePenalty = 5.0f;
     public float RavMeleeRadius = 0.3f;
     public float RavStepDistance = 0.8f;
+    public int AIUpdateRate = 10;
 }
 [System.Serializable]
 public class WeaponSettings

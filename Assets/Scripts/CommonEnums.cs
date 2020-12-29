@@ -11,5 +11,6 @@ public enum PLAYERSTATE { DEAD, ALIVE } // Dead is used outside runs when starti
 public enum ROOMEVENTS { CLEAR, PARTIMEOUT, FAIL }
 public enum TARGETSTATE { OFF, GREEN, RED }
 public enum TARGETHITREACTION { OFF, GREEN, RED, TOGGLE }
-
+public enum HITBOXLOCATION { LEG, ARM, BODY, HEAD }
+public enum ENEMYSTATE { INACTIVE, IDLE, MOVING, MELEE, RUSHING, STALKING, STUNNED, DEAD }
 

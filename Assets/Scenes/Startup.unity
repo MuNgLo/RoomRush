@@ -639,6 +639,7 @@ MonoBehaviour:
   _currentRoom: {fileID: 0}
   _roomPile:
     _pile:
+    - {fileID: 2811812781661743658, guid: f77c4f195bfb89e40962b8d3905493ae, type: 3}
     - {fileID: 8868994807540425182, guid: f5df44908066cc5469c2a133b373c843, type: 3}
     - {fileID: 9127111413336529103, guid: 3247821ac79af13468275a81a4301264, type: 3}
     - {fileID: 38979171191686988, guid: 002ab2a86d8b3c148af203bd479c01e1, type: 3}
@@ -646,7 +647,6 @@ MonoBehaviour:
     - {fileID: 1320968538175325324, guid: 9e6b8b998f4a1764c821ccf020b4e187, type: 3}
     - {fileID: 3648940891741404322, guid: d372d26b82baf4a47b4e947e67dd73d0, type: 3}
     - {fileID: 4096268652319772613, guid: 629fc9ade36ce7646895c01be2be20fd, type: 3}
-    - {fileID: 2811812781661743658, guid: f77c4f195bfb89e40962b8d3905493ae, type: 3}
   OnRoomActivated:
     m_PersistentCalls:
       m_Calls: []
@@ -2428,6 +2428,7 @@ MonoBehaviour:
       RavMeleePenalty: 2
       RavMeleeRadius: 0.3
       RavStepDistance: 0.8
+      AIUpdateRate: 10
     Music:
       musicT1:
         Clip: {fileID: 8300000, guid: cb7873f6164311e4083e9e21a003422e, type: 3}
@@ -2447,6 +2448,11 @@ MonoBehaviour:
         MaxVolume: 1
         FadeInTime: 1
         FadeOutTime: 3
+    Life:
+      DMGMP_Leg: 1
+      DMGMP_Arm: 1
+      DMGMP_Body: 1
+      DMGMP_Head: 3
 --- !u!1 &1523381077
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,4 +45,24 @@ public class Core : MonoBehaviour
         // Do a check and spit error if found
         if(!Rooms || !Runs || !Player || Settings == null) { Debug.LogError("Core failed setup!"); }
     }
+    /// <summary>
+    /// Resolves the hitbox location to the damage multiplier in settings
+    /// </summary>
+    /// <param name="hbLoc"></param>
+    /// <returns></returns>
+    internal float DamageMultiPlier(HITBOXLOCATION hbLoc)
+    {
+        switch (hbLoc)
+        {
+            case HITBOXLOCATION.LEG:
+                return Settings.Life.DMGMP_Leg;
+            case HITBOXLOCATION.ARM:
+                return Settings.Life.DMGMP_Arm;
+            case HITBOXLOCATION.HEAD:
+                return Settings.Life.DMGMP_Head;
+            case HITBOXLOCATION.BODY:
+            default:
+                return Settings.Life.DMGMP_Body;
+        }
+    }
 }
