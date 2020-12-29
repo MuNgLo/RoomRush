@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 public class ObjectScrambler: MonoBehaviour {
+    public int _skip = 0;
 	public Transform[] scrambledObjects;
 
     private void Awake()
@@ -12,6 +13,11 @@ public class ObjectScrambler: MonoBehaviour {
     }
 
     public void Start() {
+        _skip = Mathf.Clamp(_skip, 0, scrambledObjects.Length - 2);
+        for (int i = 0; i < scrambledObjects.Length; i++)
+        {
+            scrambledObjects[i].gameObject.SetActive(false);
+        }
 		scramble();
 	}
 
@@ -25,9 +31,11 @@ public class ObjectScrambler: MonoBehaviour {
 			deck.RemoveAt(index);
 		}
 		//deal
-		for (int i = 0; i < scrambledObjects.Length; i++) {
+		for (int i = 0; i < scrambledObjects.Length - _skip; i++) {
 			scrambledObjects[i].SetPositionAndRotation(result[i].position, result[i].rotation);
-		}
+            scrambledObjects[i].gameObject.SetActive(true);
+
+        }
 	}
 
 	private struct Location {

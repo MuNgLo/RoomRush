@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class MotorAlt : MonoBehaviour
 {
+    // TODO move a lot over to settings
     public float _jumpSpeed = 3.0f;
     public float _jumpCooldown = 0.3f;
     public float _friction = 1.0f;
@@ -11,6 +13,7 @@ public class MotorAlt : MonoBehaviour
     public float _max_velocity_ground = 10.0f;
     public float _air_accelerate = 10.0f;
     public float _max_velocity_air = 10.0f;
+    //private bool _teleported = false;
     private InputHandling _in = null;
     private CharacterController _cc = null;
     public bool IsGrounded { get { return _cc.isGrounded; } private set { } }
@@ -35,6 +38,7 @@ public class MotorAlt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (_teleported) { _teleported = false; return; }
         _prevPosition = transform.position;
         Vector3 wishDir = new Vector3(_in.CMD.rightMove, 0.0f, _in.CMD.forwardMove);
         wishDir = transform.TransformDirection(wishDir).normalized;
@@ -77,6 +81,20 @@ public class MotorAlt : MonoBehaviour
         _prevVelocity = frameMovement;
         //_prevVelocity = (transform.position - _prevPosition) / Time.deltaTime;
         _wasGrounded = _cc.isGrounded;
+    }
+
+    internal void Teleport(Transform spawnPoint)
+    {
+        _cc.enabled = false;
+        _prevPosition = spawnPoint.position;
+        _prevVelocity = Vector3.zero;
+        _tsJumpLast = Time.time - 10.0f;
+        _wasGrounded = true;
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
+        //_teleported = true;
+        _cc.enabled = true;
+
     }
 
     // accelDir: normalized direction that the player has requested to move (taking into account the movement keys and look direction)

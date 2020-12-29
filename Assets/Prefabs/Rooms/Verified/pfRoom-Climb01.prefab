@@ -9337,13 +9337,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2893742333285554633}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0.5}
+  m_LocalRotation: {x: -0, y: 0.5124413, z: -0, w: 0.85872227}
+  m_LocalPosition: {x: -4.483612, y: 0, z: 2.271419}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5813172358760846667}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 61.653, z: 0}
 --- !u!1 &2924475947673052113
 GameObject:
   m_ObjectHideFlags: 0
@@ -19294,7 +19294,7 @@ GameObject:
   - component: {fileID: 5026446785629492827}
   - component: {fileID: 5513728035335647785}
   m_Layer: 0
-  m_Name: pfRoom-Climp01
+  m_Name: pfRoom-Climb01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19335,13 +19335,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d71ed0a293dfa48ace846c3dfb363a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomName: Climb 01
   Author: MuNgLo
   Objective: Get to the Top
   ObjectiveCount: -1
   Tier_Lowest: -1
   Tier_Highest: -1
-  Par_Time: 12
-  Penatly_Time: 0
+  Par_Time: 20
+  Penatly_Fail: 0
+  Penatly_Reset: 0
+  ResetPlayerOnReset: 0
   Penalty_Hurt: 0
 --- !u!114 &5954024756459417537
 MonoBehaviour:
@@ -19376,8 +19379,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debug: 0
-  SpawnPoint: {fileID: 6997101326234063354}
-  Connectionpoint: {fileID: 7395456726614049764}
   WhenCleared: 1
   WhenParTimeOut: 0
   WhenFailed: 0
@@ -19391,6 +19392,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnRoomParTimeOut:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRoomReset:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5026446785629492827
@@ -26304,6 +26308,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5221441175797429354, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
+        type: 3}
+      propertyPath: _resetPlayerWhenHit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5538107325854679249, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -26313,6 +26322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6299806983416080752, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.705
       objectReference: {fileID: 0}
     - target: {fileID: 7025158403209566385, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
         type: 3}
@@ -26327,6 +26341,22 @@ PrefabInstance:
     - target: {fileID: 7763274838577241487, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8023716765220774888, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8023716765220774888, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: ec15d0252acb4cc418eb0b47acb7f8cb,
+        type: 2}
+    - target: {fileID: 8023716765220774888, guid: 235a00537bee09d47b6cbe7bb0d8d08d,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8322560984021272551, guid: 235a00537bee09d47b6cbe7bb0d8d08d,

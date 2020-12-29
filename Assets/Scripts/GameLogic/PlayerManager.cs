@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,5 +78,19 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
         _playerState = newstate;
+    }
+
+    internal void ResetToPosition(Transform spawnPoint)
+    {
+        if (_playerAvatar)
+        {
+            _playerInput.SetViewRotations(spawnPoint.rotation);
+            _playerAvatar.GetComponent<MotorAlt>().Teleport(spawnPoint);
+        }
+    }
+
+    internal void ResetToSpawnPoint()
+    {
+        ResetToPosition(Core.Instance.Rooms.CurrentRoom.SpawnPoint);
     }
 }

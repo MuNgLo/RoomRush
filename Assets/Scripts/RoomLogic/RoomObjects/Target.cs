@@ -27,6 +27,7 @@ namespace RoomLogic.RoomObjects
         public TargetEvent OnTargetStateChange;
         private float _lasthit = 0.0f;
         private ConditionBehaviour _conditionScript;
+        private bool _hasBeenHit = false;
 
         private void Awake()
         {
@@ -91,10 +92,13 @@ namespace RoomLogic.RoomObjects
         /// </summary>
         internal void RegisterHit()
         {
+            if(Core.Instance.Rooms.CurrentRoomState != ROOMSTATE.ACTIVE) { return; }
             if (Time.time < _lasthit + 0.1f) { return; }
 
-            if (_FireClearWhenHit) { _conditionScript.RoomClear(); }
-            if (_FireFailWhenHit) { _conditionScript.RoomFail(); }
+            if (_FireClearWhenHit && _hasBeenHit == false) { _conditionScript.RoomClear(); }
+            if (_FireFailWhenHit && _hasBeenHit == false) { _conditionScript.RoomFail(); }
+
+            _hasBeenHit = true;
 
             switch (_whenHit)
             {

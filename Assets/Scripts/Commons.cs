@@ -5,6 +5,8 @@ public class GameSettings
     public WeaponSettings Weapon;
     public RoomSettings Room;
     public EnemySettings Enemies;
+    public MusicSettings Music;
+
 }
 [System.Serializable]
 public class RoomSettings
@@ -37,6 +39,7 @@ public class EnemySettings
     public float RavMeleeCooldown = 1.0f;
     public float RavMeleePenalty = 5.0f;
     public float RavMeleeRadius = 0.3f;
+    public float RavStepDistance = 0.8f;
 }
 [System.Serializable]
 public class WeaponSettings
@@ -63,11 +66,14 @@ public class RunStats
     internal float GainedClearTime = 0.0f;
     internal int RoomCleared = -1;
     internal int RoomFailed = 0;
-    internal float GainedPenaltyTime;
+    internal float GainedPenaltyTime = 0.0f;
+    internal int roomresets = 0;
+
     override public string ToString()
     {
         string NL = System.Environment.NewLine;
         return $"Rooms Cleared  {RoomCleared}{NL}" +
+            $"Rooms Reset {roomresets} times{NL}" +
             $"Rooms Failed  {RoomFailed}{NL}" +
             $"Gained Clear Time  {GainedClearTime}{NL}" +
             $"Penalty Time  {GainedPenaltyTime}";
@@ -77,10 +83,23 @@ public class RunStats
 [System.Serializable]
 public class AudioTierSettings
 {
-
     public UnityEngine.AudioClip Clip = null;
+    public float ThresholdTime = 0.0f;
     public float MaxVolume = 1.0f;
     public float FadeInTime = 3.0f;
     public float FadeOutTime = 3.0f;
 }
+[System.Serializable]
+public class MusicSettings
+{
+    [UnityEngine.SerializeField]
+    private AudioTierSettings musicT1 = null;
+    [UnityEngine.SerializeField]
+    private AudioTierSettings musicT2 = null;
+    [UnityEngine.SerializeField]
+    private AudioTierSettings musicT3 = null;
 
+    public AudioTierSettings T1 { get => musicT1; set => musicT1 = value; }
+    public AudioTierSettings T2 { get => musicT2; set => musicT2 = value; }
+    public AudioTierSettings T3 { get => musicT3; set => musicT3 = value; }
+}

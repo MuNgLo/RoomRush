@@ -15,6 +15,7 @@ public class InputDebugKeys : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
         // Clear Room Key
         if(Input.GetKeyDown(KeyCode.F1))
         {
@@ -30,5 +31,18 @@ public class InputDebugKeys : MonoBehaviour
         {
             Core.Instance.Rooms.RoomTimeMultiplier -= 0.05f;
         }
+        // DEBUG pause thing Don't ship ??
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (Time.timeScale != 1.0f)
+            {
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                Time.timeScale = 0.0f;
+            }
+        }
+#endif
     }
 }

@@ -51,6 +51,16 @@ public class RunManager : MonoBehaviour
         }
     }
 
+    internal void ResetRoom(bool resetPenaly = false)
+    {
+        _stats.roomresets++;
+        if (resetPenaly)
+        {
+            ForcedPenaltyTime(Core.Instance.Rooms.CurrentRoom.Definition.Penatly_Reset);
+        }
+        Core.Instance.Rooms.CurrentRoom.ResetRoom();
+    }
+
     /// <summary>
     /// This is the method that should do all nescassary steps to generate a proper run
     /// </summary>

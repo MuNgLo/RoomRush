@@ -112,7 +112,7 @@ public class RoomManager : MonoBehaviour
                 break;
             case EVENTCONNECTION.FAIL:
                 _currentRoomTime = 0.0f;
-                CurrentRoom.OnRoomFail?.Invoke(GetComponent<RoomDefinition>().Penatly_Time);
+                CurrentRoom.OnRoomFail?.Invoke(CurrentRoom.Definition.Penatly_Fail);
                 break;
             case EVENTCONNECTION.PARTIMEOUT:
                 CurrentRoom.OnRoomParTimeOut?.Invoke(0.0f);

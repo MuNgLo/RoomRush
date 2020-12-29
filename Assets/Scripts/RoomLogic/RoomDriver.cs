@@ -8,9 +8,8 @@ namespace RoomLogic
     public class RoomDriver : MonoBehaviour
     {
         public bool _debug = false;
-        // rework these to auto and verbose
-        public Transform SpawnPoint;
-        public Transform Connectionpoint;
+        private Transform _spawnPoint;
+        private Transform _connectionpoint;
 
         private RoomDefinition _roomDefinition = null;
         private ConditionBehaviour _condition = null;
@@ -30,15 +29,36 @@ namespace RoomLogic
         public RoomFailEvent OnRoomFail = new RoomFailEvent();
         [HideInInspector]
         public RoomParTimeOutEvent OnRoomParTimeOut = new RoomParTimeOutEvent();
+        [HideInInspector]
+        public UnityEngine.Events.UnityEvent OnRoomReset = new UnityEngine.Events.UnityEvent();
         #endregion
 
         private ConditionBehaviour _conditionScript = null;
 
         public RoomDefinition Definition { get => _roomDefinition; private set => _roomDefinition = value; }
         public ConditionBehaviour Condition { get => _condition; private set => _condition = value; }
+        public Transform SpawnPoint { get => _spawnPoint; private set => _spawnPoint = value; }
+        public Transform Connectionpoint { get => _connectionpoint; private set => _connectionpoint = value; }
+
+        private void Awake()
+        {
+            SpawnPoint = transform.Find("SpawnPoint");
+            Connectionpoint = transform.Find("Connector");
+            if (!SpawnPoint)
+            {
+                Debug.LogWarning($"Spawnpoint not set on room {Definition.RoomName}. Make sure to place empty GameObject named \"SpawnPoint\" in the room.");
+                return;
+            }
+            if (!Connectionpoint)
+            {
+                Debug.LogWarning($"Connectionpoint not set on room {Definition.RoomName}. Make sure to place empty GameObject named \"Connector\" in the room.");
+                return;
+            }
+        }
 
         private void Start()
         {
+            if(Core.Instance == null) { UnityEngine.SceneManagement.SceneManager.LoadScene("Startup"); return; }
             _roomDefinition = GetComponent<RoomDefinition>();
             Condition = GetComponent<ConditionBehaviour>();
 
@@ -68,7 +88,7 @@ namespace RoomLogic
             if (Core.Instance.Rooms.CurrentRoomState == ROOMSTATE.ACTIVE)
             {
                 if (_debug) { Debug.Log("RoomDriver()::OnConditionFail Fired!"); }
-                OnRoomFail?.Invoke(_roomDefinition.Penatly_Time);
+                OnRoomFail?.Invoke(_roomDefinition.Penatly_Fail);
             }
         }
         /// <summary>
@@ -108,6 +128,20 @@ namespace RoomLogic
         internal void RoomUpdate(float deltaTime)
         {
             OnRoomUpdate?.Invoke(deltaTime);
+        }
+
+        internal void ResetRoom()
+        {
+            if (Definition.ResetPlayerOnReset)
+            {
+                if (!SpawnPoint) {
+                    Debug.LogWarning($"Spawnpoint not set on room {Definition.RoomName}. Make sure to place empty GameObject named \"SpawnPoint\" in the room.");
+                        return;
+                }
+                Core.Instance.Player.ResetToPosition(SpawnPoint);
+            }
+
+            OnRoomReset?.Invoke();
         }
     }//EOF CLASS
 }

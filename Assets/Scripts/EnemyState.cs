@@ -28,6 +28,9 @@ namespace Enemies {
         private NavMeshIntegration _navIntegration;
         private RagDollControls _ragControls;
 
+        [HideInInspector]
+        internal EnemyStateChange OnStateChange = new EnemyStateChange();
+
         private void Awake()
         {
             _navAgent = GetComponent<NavMeshAgent>();
@@ -68,6 +71,8 @@ namespace Enemies {
 
         internal void ChangeState(ENEMYSTATE newState)
         {
+            if(_state == newState) { return; }
+            OnStateChange?.Invoke(newState, _state);
             _state = newState;
             switch (newState)
             {
