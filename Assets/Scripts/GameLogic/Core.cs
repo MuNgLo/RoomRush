@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using RoomLogic.Tactical;
 using UnityEngine;
 
 
@@ -15,6 +16,7 @@ public class Core : MonoBehaviour
     private RoomManager _roomMan = null;
     private RunManager _runMan = null;
     private PlayerManager _playerMan = null;
+    internal static TacticalSpots Tactical;
 
     public static Core Instance { get => _instance; private set { } }
 
@@ -24,6 +26,7 @@ public class Core : MonoBehaviour
         string response = $"Current Run State : {Runs.State}{NL}" +
             $"Current Room State : {Rooms.CurrentRoomState}{NL}" +
             $"Current Room Time Multiplier : {Rooms.RoomTimeMultiplier}{NL}" +
+            $"Tactical info: {Tactical}" +
             Runs.Stats.ToString();
 
         return response;

@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+
+[System.Serializable]
 public class GameSettings
 {
     public RunSettings Runs;
@@ -49,6 +51,7 @@ public class EnemySettings
     public float RavMeleeRadius = 0.3f;
     public float RavStepDistance = 0.8f;
     public int AIUpdateRate = 10;
+    public float RoamStep = 3.0f;
 }
 [System.Serializable]
 public class WeaponSettings

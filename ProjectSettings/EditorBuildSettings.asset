@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/BakeScenes/pfRoom-BarrelsTemplete.unity
     guid: 0490d02ef225993408b1d58426fb7f2f
   - enabled: 1
-    path: Assets/Scenes/BakeScenes/pmRoom-SmallTemplete.unity
+    path: Assets/Scenes/BakeScenes/pfRoom-SmallTemplete.unity
     guid: 3ad4e5b60fc9f6844bab78cbaf73bec9
   - enabled: 1
     path: Assets/Scenes/BakeScenes/pfRoom-GlassMazeTemplete.unity

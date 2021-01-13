@@ -13,12 +13,14 @@ namespace Enemies
         private EnemyState _eState = null;
         private EnemyAI _ai = null;
         private NavMeshAgent _navAgent = null;
+        private Animator _anims = null;
 
         public override void RoomObjectInit(RoomDriver roomDriver, ConditionBehaviour conditionScript)
         {
             _eState = GetComponent<EnemyState>();
             _ai = GetComponent<EnemyAI>();
             _navAgent = GetComponent<NavMeshAgent>();
+            _anims = GetComponent<Animator>();
             roomDriver.OnRoomUpdate.AddListener(RoomUpdate);
             _tsLastMelee = Core.Instance.Runs.CurrentTotalTime + 10.0f;
         }
@@ -32,16 +34,20 @@ namespace Enemies
                 case ENEMYSTATE.IDLE:
                     break;
                 case ENEMYSTATE.MOVING:
-                    MoveToPoint(_ai.Target.transform.position);
+                    _navAgent.speed = Core.Instance.Settings.Enemies.RavMoveSpeed * 0.33f;
+                    MoveToPoint(_ai.TargetLocation);
                     break;
                 case ENEMYSTATE.MELEE:
                     DoMeleeAttack();
                     break;
                 case ENEMYSTATE.RUSHING:
-                    MoveToPoint(_ai.Target.transform.position);
+                    _navAgent.speed = Core.Instance.Settings.Enemies.RavMoveSpeed;
+
+                    MoveToPoint(_ai.TargetPlayer.transform.position);
                     break;
                 case ENEMYSTATE.STALKING:
-                    _navAgent.isStopped = true;
+                    _navAgent.speed = Core.Instance.Settings.Enemies.RavMoveSpeed;
+                    MoveToPoint(_ai.TargetLocation);
                     //MoveToPoint(_ai.Target.transform.position);
                     break;
                 case ENEMYSTATE.STUNNED:
@@ -66,7 +72,7 @@ namespace Enemies
             {
                 return;
             }
-
+            _anims.SetTrigger("MeleeAttack");
             RaycastHit[] hits = Physics.CapsuleCastAll(_meleePoint1.position, _meleePoint2.position, Core.Instance.Settings.Enemies.RavMeleeRadius, transform.forward, 0.1f);
             //Debug.Log($"MeleeAttack! {hits.Length} colliders hit");
             foreach (RaycastHit hit in hits)

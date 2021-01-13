@@ -13,11 +13,13 @@ namespace Enemies
 
         private int _nextUpdateIn = 0;
         public Transform _head = null;
-        private GameObject _target = null;
+        private GameObject _targetPlayer = null;
+        private Vector3 _targetLocation = Vector3.zero;
         private ENEMYSTATE State { get => _eState.State; set { } }
 
-        public GameObject Target { get => _target; private set => _target = value; }
-        
+        public GameObject TargetPlayer { get => _targetPlayer; private set => _targetPlayer = value; }
+        public Vector3 TargetLocation { get => _targetLocation; private set => _targetLocation = value; }
+
 
         private EnemyState _eState = null;
         private NavMeshAgent _navAgent = null;
@@ -38,7 +40,9 @@ namespace Enemies
         }
         private void OnRooMActivated(GameObject playerAvatar)
         {
-            _target = playerAvatar;
+            _targetPlayer = playerAvatar;
+            _targetLocation = RandomNavmeshLocation();
+            _eState.ChangeState(ENEMYSTATE.MOVING);
         }
 
         public override void RoomUpdate(float roomDeltaTime)
@@ -48,38 +52,70 @@ namespace Enemies
                 // We ded Don't do shit
                 return;
             }
-            if (_target)
+            if (_targetPlayer)
             {
-                _head.LookAt(_target.transform);
+                _head.LookAt(_targetPlayer.transform);
             }
             // Check if AI needs update
             _nextUpdateIn--;
+            // Make sure we update when we arive at a location
+            if(Vector3.Distance(_targetLocation, transform.position) < 0.2f)
+            {
+                _eState.ChangeState(ENEMYSTATE.IDLE);
+                _nextUpdateIn -= Core.Instance.Settings.Enemies.AIUpdateRate;
+            }
+            // Run AI Update when needed
             if (_nextUpdateIn < 1)
             {
                 _nextUpdateIn = Core.Instance.Settings.Enemies.AIUpdateRate;
                 // Run AI Update
-                // If we are close enough we should just mellee 
-                if (Core.Instance.Settings.Enemies.MeleeReach > Vector3.Distance(Target.transform.position, transform.position))
+                float distanceToPlayer = Vector3.Distance(TargetPlayer.transform.position, transform.position);
+                // If we are close enough we should just melee 
+                if (Core.Instance.Settings.Enemies.MeleeReach > distanceToPlayer)
                 {
                     _eState.ChangeState(ENEMYSTATE.MELEE);
                     return;
                 }
                 // Check if player is looking
-                bool isPlayerLooking = Vector3.Dot(Target.transform.forward, transform.position - Target.transform.position) > 0.1f;
+                bool isPlayerLooking = Vector3.Dot(TargetPlayer.transform.forward, transform.position - TargetPlayer.transform.position) > 0.1f;
 
-                if (isPlayerLooking)
+                if (distanceToPlayer < Core.Instance.Settings.Enemies.ReactDistance)
                 {
-                    // Player is looking so we stalk
-                    _eState.ChangeState(ENEMYSTATE.STALKING);
+                    if (isPlayerLooking)
+                    {
+                        // Player is looking so we stalk
+                        _eState.ChangeState(ENEMYSTATE.STALKING);
+                        if (Core.Tactical.FindClosestHidingSpotWithRoom(transform.position, out Vector3 spot))
+                        {
+                            // Go hide
+                            _targetLocation = spot;
+                            return;
+                        }
+                        _targetLocation = RandomNavmeshLocation();
+                    }
+                    else
+                    {
+                        // Player is not looking so we rush them
+                        _eState.ChangeState(ENEMYSTATE.RUSHING);
+                    }
+                    return;
                 }
-                else
-                {
-                    // Player is not looking so we rush them
-                    _eState.ChangeState(ENEMYSTATE.RUSHING);
-                }
+                _targetLocation = RandomNavmeshLocation();
+                _eState.ChangeState(ENEMYSTATE.MOVING);
             }
         }
 
-        
+        public Vector3 RandomNavmeshLocation()
+        {
+            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * Core.Instance.Settings.Enemies.RoamStep;
+            randomDirection += transform.position;
+            NavMeshHit hit;
+            Vector3 finalPosition = Vector3.zero;
+            if (NavMesh.SamplePosition(randomDirection, out hit, Core.Instance.Settings.Enemies.RoamStep, 1))
+            {
+                finalPosition = hit.position;
+            }
+            return finalPosition;
+        }
     }// EOF CLASS
 }

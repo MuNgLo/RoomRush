@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.101745605, g: 0.101745605, b: 0.101745605, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -639,6 +639,8 @@ MonoBehaviour:
   _currentRoom: {fileID: 0}
   _roomPile:
     _pile:
+    - {fileID: 4116031828079462440, guid: 9439ddb2495b86a4fb7d30a392220136, type: 3}
+    - {fileID: 6119952547946545833, guid: 4467b538713d303469755c3e22c92b0a, type: 3}
     - {fileID: 2811812781661743658, guid: f77c4f195bfb89e40962b8d3905493ae, type: 3}
     - {fileID: 8868994807540425182, guid: f5df44908066cc5469c2a133b373c843, type: 3}
     - {fileID: 9127111413336529103, guid: 3247821ac79af13468275a81a4301264, type: 3}
@@ -2429,6 +2431,7 @@ MonoBehaviour:
       RavMeleeRadius: 0.3
       RavStepDistance: 0.8
       AIUpdateRate: 10
+      RoamStep: 3
     Music:
       musicT1:
         Clip: {fileID: 8300000, guid: cb7873f6164311e4083e9e21a003422e, type: 3}
@@ -2438,13 +2441,13 @@ MonoBehaviour:
         FadeOutTime: 1
       musicT2:
         Clip: {fileID: 8300000, guid: cff907dd8b5f3b347b0fbccc31d2aefe, type: 3}
-        ThresholdTime: 90
+        ThresholdTime: 45
         MaxVolume: 0.6
         FadeInTime: 1
         FadeOutTime: 1
       musicT3:
         Clip: {fileID: 8300000, guid: f76ca6de5432c1941928637b3200e6f0, type: 3}
-        ThresholdTime: 45
+        ThresholdTime: 15
         MaxVolume: 1
         FadeInTime: 1
         FadeOutTime: 3
@@ -2836,7 +2839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1965174312
 RectTransform:
   m_ObjectHideFlags: 0
