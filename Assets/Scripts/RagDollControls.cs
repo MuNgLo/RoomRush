@@ -24,6 +24,20 @@ namespace Enemies
             _anims = GetComponent<Animator>();
         }
 
+        public Transform GetHeadTransform()
+        {
+            Transform result = null;
+            foreach (Rigidbody rb in _hitBoxes)
+            {
+                if(rb.name == "Head")
+                {
+                    Debug.Log("Found Head");
+                    result = rb.transform;
+                }
+            }
+            return result;
+        }
+
         public override void RoomObjectInit(RoomDriver roomDriver, ConditionBehaviour conditionScript)
         {
             roomDriver.OnRoomUpdate.AddListener(RoomUpdate);

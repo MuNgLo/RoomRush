@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
 using RoomLogic;
 using System;
 
 namespace Enemies
 {
-    [RequireComponent(typeof(EnemyAction))]
     public class EnemyAI : RoomObjectBehaviour
     {
+        public Transform _head = null;
 
         private int _nextUpdateIn = 0;
-        public Transform _head = null;
         private GameObject _targetPlayer = null;
         private Vector3 _targetLocation = Vector3.zero;
         private ENEMYSTATE State { get => _eState.State; set { } }
@@ -47,6 +47,10 @@ namespace Enemies
 
         public override void RoomUpdate(float roomDeltaTime)
         {
+            //Can we see player?
+            //Eyes.CanWeSee(_targetPlayer.GetComponent<CharacterController>().bounds);
+
+
             if (State == ENEMYSTATE.DEAD || State == ENEMYSTATE.INACTIVE || State == ENEMYSTATE.STUNNED)
             {
                 // We ded Don't do shit
@@ -54,7 +58,14 @@ namespace Enemies
             }
             if (_targetPlayer)
             {
-                _head.LookAt(_targetPlayer.transform);
+                if (_head.GetComponent<LookAtConstraint>())
+                {
+                    _head.GetComponent<LookAtConstraint>().AddSource(new ConstraintSource() { weight = 1.0f, sourceTransform = _targetPlayer.transform });
+                }
+                else
+                {
+                    _head.LookAt(_targetPlayer.transform);
+                }
             }
             // Check if AI needs update
             _nextUpdateIn--;

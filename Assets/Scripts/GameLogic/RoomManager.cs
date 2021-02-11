@@ -154,8 +154,8 @@ public class RoomManager : MonoBehaviour
         switch (_currentRoomState)
         {
             case ROOMSTATE.PRE:
-                CurrentRoomState = ROOMSTATE.ACTIVE;
                 OnRoomActivated?.Invoke(Core.Instance.Player.Avatar.gameObject);
+                CurrentRoomState = ROOMSTATE.ACTIVE;
                 break;
             case ROOMSTATE.ACTIVE:
             case ROOMSTATE.POST:

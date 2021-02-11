@@ -129,7 +129,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_719c97c05c184b24a2c6f856a34737c9: 1
-    - Vector1_c37af61efbcf4b80a432ddba9697a88b: 0.3
+    - Vector1_c37af61efbcf4b80a432ddba9697a88b: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -286,4 +286,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 11
